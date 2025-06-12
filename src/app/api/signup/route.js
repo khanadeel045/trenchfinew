@@ -8,12 +8,12 @@ export async function POST(request) {
 
   const { name, email, password } = await request.json();
   if (!name || !email || !password) {
-    return new Response(JSON.stringify({ message: 'Sab fields zaroori hain' }), { status: 400 });
+    return new Response(JSON.stringify({ message: 'All field are required' }), { status: 400 });
   }
 
   const existingUser = await User.findOne({ email });
   if (existingUser) {
-    return new Response(JSON.stringify({ message: 'Email pehle se register hai' }), { status: 409 });
+    return new Response(JSON.stringify({ message: 'Email already registered' }), { status: 409 });
   }
 
   const salt = await bcrypt.genSalt(10);
