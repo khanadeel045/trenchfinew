@@ -2,8 +2,8 @@
 "use client";
 
 import Image from "next/image";
-import cardBg from "/public/SecurePlatformSection/card.png";
-import chartImg from "/public/SecurePlatformSection/Chart.png";
+import cardBg from "/SecurePlatformSection/card.png";
+import chartImg from "/SecurePlatformSection/Chart.png";
 
 export default function SecurePlatformSection() {
   const stats = [
