@@ -32,7 +32,7 @@ export default async function DashboardPage() {
   return (
     <div className="max-w-md mx-auto mt-10">
       <h1 className="text-2xl font-bold">Welcome, {user.name}</h1>
-      <p className="mt-4">Aapka email: {user.email}</p>
+      <p className="mt-4">Your Email: {user.email}</p>
       {/* Yahan dashboard ka content rakh sakte hain */}
       <div className="mt-6">
         <form action="/api/logout" method="POST">
