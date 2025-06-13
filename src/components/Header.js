@@ -13,8 +13,8 @@ export default function Header() {
     "Live Streamx",
     "AI Chat bot",
     "Account",
-    "Log in",
-    "Sign up",
+    "Login",
+    "Signup",
   ];
 
   return (
