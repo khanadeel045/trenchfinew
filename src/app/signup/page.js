@@ -49,7 +49,7 @@ export default function SignupPage() {
   return (
     <div className="flex min-h-screen">
       {/* LEFT PANEL (White background with form) */}
-      <div className="w-1/2 flex flex-col relative justify-center px-[10px] md:px-[150px] bg-white">
+      <div className="w-full lg:w-1/2 flex flex-col relative justify-center px-[10px] md:px-[150px] bg-white">
         <div className="absolute top-0 right-0">
 
           <svg width="197" height="139" viewBox="0 0 197 139" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -300,7 +300,7 @@ export default function SignupPage() {
       </div>
 
       {/* RIGHT PANEL (Dark Gradient) */}
-      <div className="w-1/2 bg-black relative flex justify-center items-center overflow-hidden">
+      <div className="hidden lg:flex w-1/2 bg-black relative flex justify-center items-center overflow-hidden">
         <div className="absolute top-0 right-0">
           <svg width="594" height="554" viewBox="0 0 594 554" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g filter="url(#filter0_f_194_722)">
