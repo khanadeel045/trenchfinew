@@ -2,7 +2,7 @@
 "use client";
 
 import Image from "next/image";
-import cardBg from "/SecurePlatformSection/card.png";
+import cardBg from "/SecurePlatformSection/Card.png";
 import chartImg from "/SecurePlatformSection/Chart.png";
 
 export default function SecurePlatformSection() {
