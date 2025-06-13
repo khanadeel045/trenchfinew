@@ -2,8 +2,6 @@
 "use client";
 
 import Image from "next/image";
-import cardBg from "/SecurePlatformSection/Card.png";
-import chartImg from "/SecurePlatformSection/Chart.png";
 
 export default function SecurePlatformSection() {
   const stats = [
@@ -56,7 +54,7 @@ export default function SecurePlatformSection() {
 
             {/* Rotated purple background (desktop only) */}
             <div className="hidden lg:block absolute -top-28 -right-0 w-[20rem] h-[14.7rem]">
-              <Image src={cardBg} alt="" fill className="object-cover rounded-2xl" />
+              <Image src={"/SecurePlatformSection/Card.png"} alt="" fill className="object-cover rounded-2xl" />
             </div>
 
 
@@ -64,7 +62,7 @@ export default function SecurePlatformSection() {
             {/* Chart image container */}
             <div className="w-full max-w-md sm:max-w-lg lg:max-w-none bg-white rounded-2xl shadow-xl p-4 sm:p-6 lg:p-8">
               <Image
-                src={chartImg}
+                src={"/SecurePlatformSection/Chart.png"}
                 alt="Trading chart"
                 className="w-full h-auto"
               />
