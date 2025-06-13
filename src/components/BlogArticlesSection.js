@@ -13,8 +13,8 @@ export default function BlogArticlesSection() {
       author: "Emily Chang",
       date: "April 15, 2024",
       readTime: "8 minutes",
-      image: "/blog/volatility.jpg",
-      avatar: "/avatars/emily.jpg",
+      image: "/blog/volatility.png",
+      avatar: "/blog/emily.png",
     },
     {
       category: "CRYPTO",
@@ -24,8 +24,8 @@ export default function BlogArticlesSection() {
       author: "James Thompson",
       date: "April 20, 2024",
       readTime: "6 minutes",
-      image: "/blog/defi.jpg",
-      avatar: "/avatars/james.jpg",
+      image: "/blog/defi.png",
+      avatar: "/blog/james.png",
     },
     {
       category: "UPDATES",
@@ -35,8 +35,8 @@ export default function BlogArticlesSection() {
       author: "Jessica Rodriguez",
       date: "April 25, 2024",
       readTime: "5 minutes",
-      image: "/blog/merge2.jpg",
-      avatar: "/avatars/jessica.jpg",
+      image: "/blog/merge2.png",
+      avatar: "/blog/jessica.png",
     },
     {
       category: "CRYPTOCURRENCY",
@@ -46,8 +46,8 @@ export default function BlogArticlesSection() {
       author: "Michael Smith",
       date: "April 30, 2024",
       readTime: "7 minutes",
-      image: "/blog/blockchain.jpg",
-      avatar: "/avatars/michael.jpg",
+      image: "/blog/blockchain.png",
+      avatar: "/blog/michael.png",
     },
   ];
 
@@ -56,7 +56,7 @@ export default function BlogArticlesSection() {
       <div className="max-w-7xl mx-auto px-6">
         {/* Heading */}
         <h2 className="text-3xl font-bold mb-2">
-          Our <span className="text-indigo-500">Blog</span> &amp; Articles
+          Our <span className="text-[#8787FB]">Blog</span> &amp; Articles
         </h2>
         <p className="text-gray-600 mb-8">
           Explore the latest insights and updates from the SIETE team.
@@ -92,9 +92,14 @@ export default function BlogArticlesSection() {
                       className="object-cover"
                     />
                   </div>
-                  <span className="text-sm font-medium">{post.author}</span>
-                  <span className="text-sm text-gray-500">· {post.date}</span>
-                  <span className="text-sm text-gray-500">· {post.readTime}</span>
+
+                  <div>
+                    <div>
+                      <span className="text-sm font-medium">{post.author}</span>
+                    </div>
+                    <span className="text-sm text-gray-500">{post.date}</span>
+                    <span className="text-sm text-gray-500">· {post.readTime}</span>
+                  </div>
                 </div>
               </div>
             </div>

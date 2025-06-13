@@ -88,9 +88,11 @@ export default function Header() {
             )}
           </button>
 
-          {/* Mobile Dropdown */}
+
+        </div>
+                  {/* Mobile Dropdown */}
           {mobileMenuOpen && (
-            <ul className="absolute top-full left-0 w-full bg-[#8787FB] rounded-b-full px-6 py-4 flex flex-col space-y-2">
+            <ul className="absolute top-15 left-6 w-[90%] bg-[#8787FB] rounded-lg px-6 py-4 flex flex-col space-y-2">
               {navItems.map((item) => (
                 <li key={item} className="text-white font-semibold hover:text-gray-200 transition">
                   <a href={item === "Home" ? "/" : `/${item.toLowerCase().replace(/\s+/g, '-')}`}>
@@ -112,7 +114,6 @@ export default function Header() {
               </li>
             </ul>
           )}
-        </div>
       </div>
     </header>
   );

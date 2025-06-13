@@ -20,6 +20,9 @@ export default function HeroSection() {
   return (
     <section className="relative bg-white overflow-hidden pt-20 pb-12  h-screen">
       {/* Background circles */}
+
+      <div className="md:hidden h-[50px] "></div>
+
       <div className="absolute -top-20 -right-0" >
         <svg width="453" height="622" viewBox="0 0 453 622" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M160.37 -28.3639L161.425 241.132L178.87 241.132L179.071 289.559L158.132 289.559L158.685 433.33C158.098 433.48 157.578 433.821 157.205 434.3C156.832 434.778 156.627 435.366 156.624 435.973C156.624 436.714 156.918 437.425 157.441 437.949C157.965 438.473 158.674 438.767 159.414 438.767C160.154 438.767 160.864 438.473 161.387 437.949C161.91 437.425 162.204 436.714 162.204 435.973C162.174 435.388 161.958 434.828 161.587 434.375C161.216 433.922 160.71 433.6 160.143 433.456L159.59 291.17L211.699 290.968L211.121 145.662L226.027 145.662L225.348 -28.4142L223.916 -28.4142L224.569 144.227L209.663 144.227L209.914 208.688L174.723 208.688L174.396 125.475L190.333 125.475L189.754 -28.3891L188.297 -28.3891L188.875 124.016L172.938 124.016L173.29 210.122L209.889 209.996L210.216 289.383L180.504 289.383L180.303 239.47L162.858 239.47L161.802 -28.5653L160.37 -28.3639Z" fill="#A5BFB3" fill-opacity="0.55" />
@@ -109,7 +112,7 @@ export default function HeroSection() {
 
       </div>
 
-      <div className="relative  pl-6 flex flex-col md:flex-row items-center h-full ">
+      <div className="relative  pl-6 flex flex-col md:flex-row items-center md:h-full ">
         {/* Left */}
         <div className="md:w-1/2 flex justify-center">
           <div className="space-y-6">
@@ -134,7 +137,8 @@ export default function HeroSection() {
 
 
         {/* Right (token cards) */}
-        <div className="md:w-1/2 relative h-[400px] mt-12 md:mt-0">
+        {/* desktop section */}
+        <div className="hidden md:block md:w-1/2 relative h-[400px] mt-12 md:mt-0">
           {cards.map((c, i) => (
             <div
               key={i}
@@ -167,8 +171,26 @@ export default function HeroSection() {
         </div>
 
 
-        <div
-          className="absolute bg-[#8787FB] text-white rounded-xl p-4 w-52 shadow-lg transform hover:scale-105 transition flex  h-[200px] w-[300px] right-[420px] top-[50%]"
+
+        {/* mobile section */}
+        <div className="md:hidden w-full overflow-x-auto flex space-x-4 mt-8 pb-4 flex flex-col gap-2">
+          {cards.map((c, i) => (
+            <div
+              key={i}
+              className="max-w-[96%] bg-[#8787FB] text-white rounded-xl p-4 shadow-lg"
+            >
+              <div className="flex items-center space-x-3">
+                <img src={c.icon} className="w-6 h-6" />
+                <div>
+                  <h4 className="font-semibold text-sm">{c.symbol}</h4>
+                  <p className="text-xs">{c.price}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="hidden md:block absolute bg-[#8787FB] text-white rounded-xl p-4 w-52 shadow-lg transform hover:scale-105 transition flex  h-[200px] w-[300px] right-[420px] top-[50%]"
         >
           <div className="flex flex-col justify-center items-center w-full">
             <div className="flex gap-5 w-full">
@@ -185,42 +207,41 @@ export default function HeroSection() {
             </svg>
 
 
-          <div className="flex justify-between w-full">
-            <div>
-              $53,519.32
+            <div className="flex justify-between w-full">
+              <div>
+                $53,519.32
+              </div>
+              <div>
+                +0,25%
+              </div>
             </div>
-            <div>
-              +0,25%
-            </div>
-          </div>
           </div>
         </div>
-
 
 
       </div>
 
       {/* Bottom ticker */}
-      <div className="sw-full overflow-x-auto">
-          <div className="flex space-x-8 bg-purple-500 text-white py-3 px-6">
-              {ticker.map((t) => (
-                <div
-                  key={t.symbol}
-                  className="flex items-center space-x-2 whitespace-nowrap"
-                >
-                  <img src={t.icon} alt={t.symbol} className="w-5 h-5" />
-                  <span className="font-medium">{t.symbol}</span>
-                  <span className="text-sm">{t.price}</span>
-                  <span
-                    className={`text-sm ${t.change.startsWith("+") ? "text-green-300" : "text-red-300"
-                      }`}
-                  >
-                    {t.change}
-                  </span>
-                </div>
-              ))}
+      <div className="sw-full">
+        <div className="flex space-x-8 bg-gradient-to-r from-[#8787FB] to-[#505095] text-white py-3 px-6  overflow-x-auto">
+          {ticker.map((t) => (
+            <div
+              key={t.symbol}
+              className="flex items-center space-x-2 whitespace-nowrap"
+            >
+              <img src={t.icon} alt={t.symbol} className="w-5 h-5" />
+              <span className="font-medium">{t.symbol}</span>
+              <span className="text-sm">{t.price}</span>
+              <span
+                className={`text-sm ${t.change.startsWith("+") ? "text-green-300" : "text-red-300"
+                  }`}
+              >
+                {t.change}
+              </span>
+            </div>
+          ))}
 
-          </div>
+        </div>
       </div>
 
     </section>

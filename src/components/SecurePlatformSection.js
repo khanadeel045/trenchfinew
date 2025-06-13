@@ -2,6 +2,8 @@
 "use client";
 
 import Image from "next/image";
+import cardBg from "/public/SecurePlatformSection/card.png";
+import chartImg from "/public/SecurePlatformSection/Chart.png";
 
 export default function SecurePlatformSection() {
   const stats = [
@@ -11,43 +13,61 @@ export default function SecurePlatformSection() {
   ];
 
   return (
-    <section className="py-20 bg-white relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="py-16 sm:py-20 bg-white relative overflow-hidden">
+      <img
+        src="/SecurePlatformSection/sidelines.svg"
+        alt="Sidelines"
+        className="absolute top-1/2  transform -translate-y-2/5"
+      />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Title */}
-        <h2 className="text-3xl font-bold text-center mb-8">
-          The most <span className="text-indigo-500">secure</span> trading<br/>platform
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 sm:mb-12">
+          The most <span className="text-[#8787FB]">secure</span> trading<br/>platform
         </h2>
 
-        {/* Two-column layout */}
-        <div className="flex flex-col lg:flex-row items-center gap-12">
-          {/* Left: description + stats */}
-          <div className="lg:w-1/2 space-y-6">
-            <p className="text-gray-600 max-w-lg mx-auto lg:mx-0">
-              Trusted by over 100,000 traders & creators worldwide, our platform thrives on transparency, 
-              community, and real-time insights. With users across 30+ countries and over a million token views 
-              tracked, we’ve become a go-to hub for discovering...
-            </p>
-            <ul className="space-y-4">
-              {stats.map((s) => (
-                <li key={s.label} className="flex items-center">
-                  <span className="text-2xl font-bold text-gray-900 mr-3">{s.value}</span>
-                  <span className="text-gray-600">{s.label}</span>
-                </li>
-              ))}
-            </ul>
+        {/* Intro paragraph */}
+        <p className="text-gray-600 text-base sm:text-lg leading-relaxed w-full lg:w-3/5 mb-12">
+          Trusted by over 100,000 traders & creators worldwide, our platform thrives on transparency, 
+          community, and real-time insights. With users across 30+ countries and over a million token views 
+          tracked, we’ve become a go-to hub for discovering...
+        </p>
+
+        {/* 20/80 two-column layout */}
+        <div className="flex flex-col lg:flex-row items-start gap-12 lg:gap-16">
+
+
+
+          {/* Left stats column (20% on lg) */}
+          <div className="w-full lg:flex-none lg:w-1/5 h-auto lg:h-[600px] flex flex-col gap-8 lg:gap-[50px] justify-center">
+            {stats.map((s) => (
+              <div key={s.label} className="text-center sm:text-left">
+                <div className="text-2xl sm:text-3xl font-extrabold text-gray-900">
+                  {s.value}
+                </div>
+                <div className="mt-1 text-gray-500">
+                  {s.label}
+                </div>
+              </div>
+            ))}
           </div>
 
-          {/* Right: chart card with overlay */}
-          <div className="lg:w-1/2 relative">
-            {/* Overlay card */}
-            <div className="absolute -top-8 -right-8">
-                <img src="/SecurePlatformSection/Card.png" />
+          {/* Right chart column (80% on lg) */}
+          <div className="w-full lg:flex-grow lg:w-4/5 relative flex justify-center lg:justify-end">
 
+            {/* Rotated purple background (desktop only) */}
+            <div className="hidden lg:block absolute -top-28 -right-0 w-[20rem] h-[14.7rem]">
+              <Image src={cardBg} alt="" fill className="object-cover rounded-2xl" />
             </div>
 
-            {/* Chart card */}
-            <div className="">
-                              <img src="/SecurePlatformSection/Chart.png" />
+
+            
+            {/* Chart image container */}
+            <div className="w-full max-w-md sm:max-w-lg lg:max-w-none bg-white rounded-2xl shadow-xl p-4 sm:p-6 lg:p-8">
+              <Image
+                src={chartImg}
+                alt="Trading chart"
+                className="w-full h-auto"
+              />
             </div>
           </div>
         </div>

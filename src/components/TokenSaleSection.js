@@ -16,7 +16,7 @@ export default function TokenSaleSection() {
       <div className="max-w-4xl mx-auto px-6 text-center">
         {/* Title */}
         <h2 className="text-3xl font-bold mb-2">
-          Token Sale With <span className="text-indigo-500">Attractive</span> Discounts
+          Token Sale With <span className="text-[#8787FB]">Attractive</span> Discounts
         </h2>
         <p className="text-gray-600 mb-8">
           Join thousands who are already part of the revolution
@@ -59,7 +59,7 @@ export default function TokenSaleSection() {
           </div>
 
           {/* Join Now button */}
-          <button className="bg-indigo-500 text-white px-8 py-3 rounded-lg hover:bg-indigo-600 transition">
+          <button className="bg-[#8787FB] text-white px-8 py-3 rounded-lg hover:bg-indigo-600 transition">
             Join Now
           </button>
         </div>

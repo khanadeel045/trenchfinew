@@ -17,13 +17,13 @@ export default function ResourcesSection() {
       icon: '/ResourcesSection/device.svg',
       title: 'Video Feed',
       desc: 'Short-form, TikTok-style video content for traders · Reactions: Rocket (bullish), Fire (like), Thumbs Down (dislike) · Comment threads under each video.',
-      bg: 'bg-purple-50',
+      bg: 'bg-white',
     },
     {
       icon: '/ResourcesSection/chart.svg',
       title: 'Live Streams',
       desc: 'Traders can go live and stream trading sessions · Viewers can join and comment in real time.',
-      bg: 'bg-white',
+      bg: 'bg-purple-50',
     },
     {
       icon: '/ResourcesSection/device.svg',
@@ -43,17 +43,17 @@ export default function ResourcesSection() {
     <section className="py-20 bg-white">
       <div className="max-w-3xl mx-auto text-center px-6">
         <h2 className="text-3xl font-bold mb-4">
-          Ready to Build, <span className="text-indigo-500">Share</span> &amp; Explore?
+          Ready to Build, <span className="text-[#8787FB]">Share</span> &amp; Explore?
         </h2>
         <p className="text-gray-600 mb-6">
           Sign up today to create your own profile, access exclusive builds, and become part of the community.
         </p>
-        <button className="bg-indigo-500 text-white px-8 py-3 rounded-lg hover:bg-indigo-600 transition mb-12">
+        <button className="bg-[#8787FB] text-white px-8 py-3 rounded-lg hover:bg-[#8787FB] transition mb-12">
           Create Account
         </button>
 
         <h3 className="text-2xl font-semibold mb-8">
-          All your resources on <span className="text-indigo-500">one</span> platform!
+          All your resources on <span className="text-[#8787FB]">one</span> platform!
         </h3>
       </div>
 
