@@ -26,7 +26,7 @@ export default function VideoFeed() {
   };
 
   return (
-    <div className="space-y-6 p-4 pt-30">
+    <div className="space-y-6 p-4">
       {videos.map(video => (
         <div key={video._id} className="bg-gray-900 rounded-lg overflow-hidden shadow-lg">
           <div className="p-4 border-b border-gray-700 flex justify-between items-center">
