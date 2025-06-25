@@ -65,6 +65,8 @@ export default function SecurePlatformSection() {
                 src={"/SecurePlatformSection/Chart.png"}
                 alt="Trading chart"
                 className="w-full h-auto"
+                width={800}
+                height={500}
               />
             </div>
           </div>

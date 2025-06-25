@@ -4,6 +4,7 @@ import User from '../../../models/User';
 import bcrypt from 'bcryptjs';
 import { signToken } from '../../../utils/auth';
 import { serialize } from 'cookie';
+import jwt from 'jsonwebtoken';
 
 export async function POST(request) {
   await connectToDatabase();
@@ -23,8 +24,17 @@ export async function POST(request) {
     return new Response(JSON.stringify({ message: 'Invalid email ya password' }), { status: 401 });
   }
 
-  const token = signToken(user);
-  const cookieHeader = serialize('token', token, {
+const token = jwt.sign(
+  {
+    id: user._id,
+    name: user.name, // 👈 important for Header.js
+    role: user.role
+  },
+  process.env.JWT_SECRET,
+  { expiresIn: '7d' }
+);
+
+const cookieHeader = serialize('token', token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'strict',

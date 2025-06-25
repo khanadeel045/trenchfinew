@@ -25,10 +25,10 @@ export default function LoginPage() {
 
       const data = await res.json();
       if (!res.ok) {
-        setErrorMsg(data.message || 'Kuch ghalat ho gaya');
+        setErrorMsg(data.message || 'Something Went Wrong');
         setIsLoading(false); // stop loader on error
       } else {
-        router.push('/dashboard');
+        router.push('/account');
       }
     } catch (err) {
       setErrorMsg('Network error');

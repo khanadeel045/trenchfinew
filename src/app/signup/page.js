@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 
 export default function SignupPage() {
   const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -29,13 +30,13 @@ export default function SignupPage() {
       const res = await fetch('/api/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, password }),
+        body: JSON.stringify({ name, email, password, username }),
       });
 
       const data = await res.json();
 
       if (!res.ok) {
-        setErrorMsg(data.message || 'Kuch ghalat ho gaya');
+        setErrorMsg(data.message || 'Something Went Wrong!');
         setIsLoading(false);
       } else {
         router.push('/login');
@@ -158,6 +159,24 @@ export default function SignupPage() {
               onChange={(e) => setName(e.target.value)}
               className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
               placeholder="Your full name"
+              required
+              disabled={isLoading}
+            />
+          </div>
+
+
+          {/* Username */}
+          <div>
+            <label htmlFor="username" className="block text-gray-700 mb-1">
+              Username
+            </label>
+            <input
+              id="username"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              placeholder="Your Username"
               required
               disabled={isLoading}
             />

@@ -1,9 +1,13 @@
-// /src/utils/auth.js
+// /utils/auth.js
 import jwt from 'jsonwebtoken';
 
 export function signToken(user) {
   return jwt.sign(
-    { _id: user._id, email: user.email },
+    {
+      _id: user._id, // ✅ Make sure this is _id not id
+      email: user.email,
+      role: user.role,
+    },
     process.env.JWT_SECRET,
     { expiresIn: '7d' }
   );
@@ -12,7 +16,7 @@ export function signToken(user) {
 export function verifyToken(token) {
   try {
     return jwt.verify(token, process.env.JWT_SECRET);
-  } catch {
+  } catch (err) {
     return null;
   }
 }
