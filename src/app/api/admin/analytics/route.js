@@ -1,6 +1,8 @@
-// /api/admin/analytics.js
-router.get('/analytics', async (req, res) => {
-  const userData = await getUserStats(); // implement your logic
-  const revenueData = await getRevenueStats(); // implement this too
-  res.json({ userData, revenueData });
-});
+// /app/api/admin/analytics/route.js
+import { NextResponse } from 'next/server';
+
+export async function GET(request) {
+  const userData = await getUserStats();
+  const revenueData = await getRevenueStats();
+  return NextResponse.json({ userData, revenueData });
+}
