@@ -33,7 +33,7 @@ export default function HistoryPage() {
         ) : (
           <div className="grid gap-4">
             {liked.map((video) => (
-              <VideoCard key={video._id} video={video} currentUser={me} />
+              // <VideoCard key={video._id} video={video} currentUser={me} />
             ))}
           </div>
         )}
@@ -46,7 +46,7 @@ export default function HistoryPage() {
         ) : (
           <div className="grid gap-4">
             {commented.map((video) => (
-              <VideoCard key={video._id} video={video} currentUser={me} />
+              // <VideoCard key={video._id} video={video} currentUser={me} />
             ))}
           </div>
         )}
