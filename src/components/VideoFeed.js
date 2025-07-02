@@ -1,64 +1,112 @@
 'use client';
+
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { toast } from 'react-hot-toast';
+import CommentSection from '@/components/CommentSection';
 
 export default function VideoFeed() {
   const [videos, setVideos] = useState([]);
   const [me, setMe] = useState(null);
+  const router = useRouter();
 
+  /* ─────────────── Load user + videos ─────────────── */
   useEffect(() => {
-    fetch('/api/videos/feed')
-      .then(res => res.json())
-      .then(setVideos);
+    async function load() {
+      // 1) Current user (if logged-in)
+      try {
+        const u = await fetch('/api/me');
+        if (u.ok) setMe(await u.json());
+      } catch (e) {
+        /* ignore */
+      }
 
-    fetch('/api/me')
-      .then(res => res.json())
-      .then(setMe);
+      // 2) Video list
+      const res = await fetch('/api/videos/feed');
+      const data = await res.json();
+      setVideos(data);
+    }
+    load();
   }, []);
 
-  const handleDelete = async (id) => {
-    if (!confirm('Delete this video?')) return;
-    const res = await fetch(`/api/videos/${id}/delete`, {
-      method: 'DELETE',
-    });
-    if (res.ok) {
-      setVideos(videos.filter(v => v._id !== id));
-    }
+  const myId = me?._id || me?.id;           // helper
+
+  /* ─────────────── Like toggle ─────────────── */
+  const toggleLike = async (videoId) => {
+    if (!myId) return toast.error('Login karo pehle!');
+    const res = await fetch(`/api/videos/${videoId}/like`, { method: 'POST' });
+    if (!res.ok) return toast.error('Kuch ghalat ho gaya');
+
+    const { liked, likeCount } = await res.json();
+    setVideos(videos.map(v =>
+      v._id === videoId ? { ...v, likedByMe: liked, likeCount } : v
+    ));
   };
 
+  /* ─────────────── Share link copy ─────────────── */
+  const handleShare = (videoId) => {
+    const url = `${window.location.origin}/videofeed/${videoId}`;
+    navigator.clipboard.writeText(url);
+    toast.success('Link copied!');
+  };
+
+  /* ─────────────── Render ─────────────── */
   return (
-    <div className="space-y-6 p-4">
+    <div className="space-y-6 p-4 max-w-2xl mx-auto">
       {videos.map(video => (
-        <div key={video._id} className="bg-gray-900 rounded-lg overflow-hidden shadow-lg">
-          <div className="p-4 border-b border-gray-700 flex justify-between items-center">
-            <div>
-              <p className="text-sm text-gray-400">
-                👤 <span className="font-mono">{video.userId?.name || 'Unknown User'}</span>
-              </p>
-              <p className="text-xs text-gray-500">
-                ⏱️ {new Date(video.createdAt).toLocaleString()}
-              </p>
-            </div>
-
-          </div>
-
+        <div key={video._id} className="bg-gray-900 rounded-lg shadow-lg overflow-hidden">
+          {/* Video player */}
           <video
-            controls
-            playsInline
-            preload="metadata"
-            disablePictureInPicture
-            controlsList="nodownload noplaybackrate"
-            onContextMenu={(e) => e.preventDefault()}
             src={video.videoUrl}
-            className="w-full"
-            style={{ maxHeight: '500px' }}
+            controls
+            className="w-full h-auto bg-black"
           />
 
+          {/* Info */}
           <div className="p-4">
-            <h2 className="text-white text-xl font-semibold">{video.title}</h2>
-            <p className="text-gray-400 mt-1">{video.description}</p>
+            <h3 className="text-lg font-semibold text-white">
+              {video.title}
+            </h3>
+            <p className="text-sm text-gray-400">
+              {video.description}
+            </p>
+          </div>
+
+          {/* Action bar */}
+          <div className="flex items-center gap-6 p-4 border-t border-gray-700 text-gray-400">
+            {/* Like */}
+            <button
+              onClick={() => toggleLike(video._id)}
+              disabled={!myId}
+              className={`flex items-center gap-1 transition ${
+                video.likedByMe ? 'text-pink-400' : ''
+              } ${!myId ? 'opacity-40 cursor-not-allowed' : 'hover:text-pink-400'}`}
+            >
+              👍 <span>{video.likeCount}</span>
+            </button>
+
+            {/* Comments */}
+            <CommentSection
+              videoId={video._id}
+              me={me}
+              initialCount={video.commentCount}
+            />
+
+            {/* Share */}
+            <button
+              onClick={() => handleShare(video._id)}
+              className="flex items-center gap-1 hover:text-indigo-400"
+            >
+              ↗️ <span>Share</span>
+            </button>
           </div>
         </div>
       ))}
+
+      {/* Agar koi video hi nahin */}
+      {videos.length === 0 && (
+        <p className="text-center text-gray-400">Koi videos nahin milī.</p>
+      )}
     </div>
   );
 }
