@@ -67,8 +67,8 @@ export default function VideoCard({ video, currentUser }) {
             onClick={toggleLike}
             disabled={!myId}
             className={`flex items-center gap-1 transition ${
-n            liked ? 'text-blue-500' : 'hover:text-blue-500'
-n          } ${!myId && 'opacity-40 cursor-not-allowed'}`}
+            liked ? 'text-blue-500' : 'hover:text-blue-500'
+          } ${!myId && 'opacity-40 cursor-not-allowed'}`}
           >
             <ThumbsUp size={18} />
             <span>{likeCount}</span>
