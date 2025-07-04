@@ -63,7 +63,7 @@ export default function VideoFeedSection() {
       <div className="max-w-6xl mx-auto px-4 space-y-6">
         {/* Heading */}
         <div>
-          <h2 className="text-3xl font-bold">🔥 Most Loved Trader Videos</h2>
+          <h2 className="text-3xl font-bold">Explore Trader Videos</h2>
           <p className="text-gray-600">
             Watch the most popular content from top traders. React, comment, and stay updated.
           </p>
