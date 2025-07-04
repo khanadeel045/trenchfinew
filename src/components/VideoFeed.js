@@ -54,12 +54,12 @@ export default function VideoFeed() {
   return (
     <div className="space-y-6 p-4 max-w-2xl mx-auto">
       {videos.map(video => (
-        <div key={video._id} className="bg-gray-900 rounded-lg shadow-lg overflow-hidden">
+        <div key={video._id} className="w-[400px] bg-gray-900 rounded-lg shadow-lg overflow-hidden">
           {/* Video player */}
           <video
             src={video.videoUrl}
             controls
-            className="w-full h-auto bg-black"
+            className="w-[400px] h-auto bg-black"
           />
 
           {/* Info */}
@@ -105,7 +105,7 @@ export default function VideoFeed() {
 
       {/* Agar koi video hi nahin */}
       {videos.length === 0 && (
-        <p className="text-center text-gray-400">Koi videos nahin milī.</p>
+        <p className="text-center text-gray-400">No video Found.</p>
       )}
     </div>
   );
