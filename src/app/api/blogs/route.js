@@ -21,50 +21,103 @@ function slugify(text) {
     .replace(/[\s\W-]+/g, '-');
 }
 
+
 // Ensure slug unique
-async function ensureUniqueSlug(baseSlug) {
-  let slug = baseSlug;
-  let count = 0;
-  while (await Blog.findOne({ slug })) {
-    count += 1;
-    slug = `${baseSlug}-${count}`;
+async function ensureUniqueSlug(base, excludeId = null) {
+  let slug = base, count = 0;
+  const query = excludeId ? { slug, _id: { $ne: excludeId } } : { slug };
+  while (await Blog.findOne(query)) {
+    count++;
+    slug = `${base}-${count}`;
+    if (excludeId) query.slug = slug;
   }
   return slug;
 }
 
 export const config = { api: { bodyParser: false } };
 
+// ─── GET ───────────────────────────────────────────────────────────────────────
 export async function GET() {
+  await connectToDatabase();
   try {
-    await connectToDatabase();
     const blogs = await Blog.find()
+      .select('title slug content featureImage author category')
       .populate('author', 'username')
-      .populate('category', 'name slug')  // category.slug bhi chahiye
-      .lean();                             // plain JS object with slug
+      .populate('category', 'name slug')
+      .lean();
     return NextResponse.json(blogs);
-  } catch (err) {
-    console.error('❌ GET /api/blogs error:', err);
-    return NextResponse.json(
-      { error: 'Server error fetching blogs' },
-      { status: 500 }
-    );
+  } catch (e) {
+    console.error(e);
+    return NextResponse.json({ error: 'Fetch error' }, { status: 500 });
   }
 }
 
+// ─── POST ──────────────────────────────────────────────────────────────────────
 export async function POST(request) {
+  await connectToDatabase();
+  try {
+    const cookieStore = await cookies();
+    const token = cookieStore.get('token')?.value || '';
+    const user = verifyToken(token);
+    if (!user?.id) return NextResponse.json({ error: 'Login required' }, { status: 401 });
+
+    const fd = await request.formData();
+    const title    = fd.get('title')?.toString().trim();
+    const slugIn   = fd.get('slug')?.toString().trim();
+    const content  = fd.get('content')?.toString().trim();
+    const cat      = fd.get('category')?.toString().trim();
+    const fileObj  = fd.get('featureImage');
+
+    if (!title || !content || !cat) {
+      return NextResponse.json({ error: 'Title, slug, content, category required' }, { status: 400 });
+    }
+
+    // Slug
+    const baseSlug = slugIn ? slugify(slugIn) : slugify(title);
+    const slug     = await ensureUniqueSlug(baseSlug);
+
+    // Image
+    let featureUrl = '';
+    if (fileObj && fileObj instanceof File) {
+      const buf = Buffer.from(await fileObj.arrayBuffer());
+      const dir = path.join(process.cwd(), 'public/uploads', user.id, 'blogs');
+      if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+      const fn = `${Date.now()}-${fileObj.name}`;
+      await fs.promises.writeFile(path.join(dir, fn), buf);
+      featureUrl = `/uploads/${user.id}/blogs/${fn}`;
+    }
+
+    console.log('Creating blog with slug:', slug);
+    const blog = await Blog.create({
+      author:       user.id,
+      title,
+      slug,
+      content,
+      category:     cat,
+      featureImage: featureUrl,
+      attachments:  []
+    });
+
+    return NextResponse.json(blog, { status: 201 });
+  } catch (e) {
+    console.error('POST error:', e);
+    return NextResponse.json({ error: 'Creation error' }, { status: 500 });
+  }
+}
+
+
+
+export async function PUT(request, { params }) {
   try {
     await connectToDatabase();
+    const { id } = params;
 
-    // Auth check
+    // Auth
     const cookieStore = await cookies();
     const token = cookieStore.get('token')?.value || '';
     const decoded = verifyToken(token);
-    if (!decoded?.id) {
-      return NextResponse.json({ error: 'Login required' }, { status: 401 });
-    }
-    const userId = decoded.id;
+    if (!decoded?.id) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
-    // Parse form data
     const formData = await request.formData();
     const title       = formData.get('title')?.toString().trim();
     let   slugInput   = formData.get('slug')?.toString().trim();
@@ -73,52 +126,70 @@ export async function POST(request) {
     const featureFile = formData.get('featureImage');
 
     if (!title || !content || !category) {
-      return NextResponse.json(
-        { error: 'Title, content, and category required' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Title, content, and category required' }, { status: 400 });
     }
 
-    // Slug logic: auto-generate if not provided
-    const base = slugInput ? slugify(slugInput) : slugify(title);
-    const slug = await ensureUniqueSlug(base);
+    // Existing blog
+    const existing = await Blog.findById(id);
+    if (!existing) return NextResponse.json({ error: 'Not found' }, { status: 404 });
 
-    // User-specific uploads folder: public/uploads/{userId}/blogs
-    let featureUrl = '';
+    // Slug logic (exclude self)
+    const base = slugInput ? slugify(slugInput) : slugify(title);
+    const slug = await ensureUniqueSlug(base, id);
+
+    // Prepare update
+    const updateData = { title, slug, content, category };
+
+    // New feature image?
     if (featureFile && featureFile instanceof File) {
-      const buffer = Buffer.from(await featureFile.arrayBuffer());
-      const uploadsDir = path.join(
-        process.cwd(),
-        'public',
-        'uploads',
-        userId,
-        'blogs'
-      );
-      if (!fs.existsSync(uploadsDir)) {
-        fs.mkdirSync(uploadsDir, { recursive: true });
+      // delete old image
+      if (existing.featureImage) {
+        const oldPath = path.join(process.cwd(), 'public', existing.featureImage);
+        if (fs.existsSync(oldPath)) await fs.promises.unlink(oldPath);
       }
+      // save new
+      const buffer = Buffer.from(await featureFile.arrayBuffer());
+      const uploadsDir = path.join(process.cwd(), 'public', 'uploads', decoded.id, 'blogs');
+      if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
       const filename = `${Date.now()}-${featureFile.name}`;
       await fs.promises.writeFile(path.join(uploadsDir, filename), buffer);
-      featureUrl = `/uploads/${userId}/blogs/${filename}`;
+      updateData.featureImage = `/uploads/${decoded.id}/blogs/${filename}`;
     }
 
-    // Create blog with slug
-    const blog = await Blog.create({
-      author:       userId,
-      title,
-      slug,
-      content,
-      category,
-      featureImage: featureUrl,
-      attachments:  []
-    });
-
-    return NextResponse.json(blog, { status: 201 });
+    const updated = await Blog.findByIdAndUpdate(id, updateData, { new: true });
+    return NextResponse.json(updated);
   } catch (err) {
-    console.error('❌ POST /api/blogs error:', err);
-    return NextResponse.json(
-      { error: 'Server error creating blog' },
-      { status: 500 }
-    );
+    console.error('❌ PUT /api/blogs error:', err);
+    return NextResponse.json({ error: 'Server error updating blog' }, { status: 500 });
+  }
+}
+
+export async function DELETE(request, { params }) {
+  try {
+    await connectToDatabase();
+    const { id } = params;
+
+    // Auth
+    const cookieStore = await cookies();
+    const token = cookieStore.get('token')?.value || '';
+    const decoded = verifyToken(token);
+    if (!decoded?.id) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+
+    const blog = await Blog.findById(id);
+    if (!blog) return NextResponse.json({ error: 'Not found' }, { status: 404 });
+
+    // Delete image
+    if (blog.featureImage) {
+      const filePath = path.join(process.cwd(), 'public', blog.featureImage);
+      if (fs.existsSync(filePath)) {
+        await fs.promises.unlink(filePath);
+      }
+    }
+
+    await Blog.findByIdAndDelete(id);
+    return NextResponse.json({ success: true });
+  } catch (err) {
+    console.error('❌ DELETE /api/blogs error:', err);
+    return NextResponse.json({ error: 'Server error deleting blog' }, { status: 500 });
   }
 }

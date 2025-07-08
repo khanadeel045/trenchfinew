@@ -5,10 +5,17 @@ import dynamic from 'next/dynamic';
 import '@uiw/react-md-editor/markdown-editor.css';
 import '@uiw/react-markdown-preview/markdown.css';
 
-const MDEditor = dynamic(() => import('@uiw/react-md-editor').then(mod => mod.default), { ssr: false });
+const MDEditor = dynamic(
+  () => import('@uiw/react-md-editor').then(mod => mod.default),
+  { ssr: false }
+);
 
 function autoSlug(text) {
-  return text.toString().toLowerCase().trim().replace(/[\s\W-]+/g, '-');
+  return text
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/[\s\W-]+/g, '-');
 }
 
 export default function CreateBlogProfessional({
@@ -29,15 +36,18 @@ export default function CreateBlogProfessional({
 
   useEffect(() => {
     setMounted(true);
-    fetch('/api/categories').then(r=>r.json()).then(setCategories).catch(console.error);
+    fetch('/api/categories')
+      .then(r => r.json())
+      .then(setCategories)
+      .catch(console.error);
   }, []);
 
-  // Auto-generate slug when title changes, if user has not manually edited slug
+  // Auto-generate slug when title changes, unless manually edited
   useEffect(() => {
     if (!manualSlug) {
       setSlug(autoSlug(title));
     }
-  }, [title, manualSlug]);
+  }, [title]);
 
   const handleSlugChange = e => {
     setSlug(e.target.value);
@@ -54,7 +64,7 @@ export default function CreateBlogProfessional({
 
   const handleSubmit = async e => {
     e.preventDefault();
-    if (!title.trim() || !content.trim() || !categoryId || !slug.trim()) {
+    if (!title.trim() || !slug.trim() || !content.trim() || !categoryId) {
       alert('Title, Slug, Content aur Category required hain.');
       return;
     }
@@ -62,7 +72,7 @@ export default function CreateBlogProfessional({
 
     const form = new FormData();
     form.append('title', title);
-    form.append('slug', slug);
+    form.append('slug', slug);                   // ← slug append
     form.append('content', content);
     form.append('category', categoryId);
     if (featureImage) form.append('featureImage', featureImage);
@@ -71,13 +81,17 @@ export default function CreateBlogProfessional({
       if (onSubmit) {
         await onSubmit(form);
       } else {
-        const res = await fetch('/api/blogs', { method: 'POST', body: form });
-        if (!res.ok) throw new Error('Server error');
+        const res = await fetch('/api/blogs', { method: initialData ? 'PUT' : 'POST', body: form });
+        if (!res.ok) {
+          const err = await res.json();
+          throw new Error(err.error || 'Server error');
+        }
       }
+      alert('✅ Blog saved!');
       if (onSuccess) onSuccess();
     } catch (err) {
       console.error(err);
-      alert('Submit mein masla hua.');
+      alert('❌ Submit mein masla hua: ' + err.message);
     } finally {
       setSubmitting(false);
     }
@@ -95,6 +109,7 @@ export default function CreateBlogProfessional({
           className="w-full border p-2 rounded"
           value={title}
           onChange={e => setTitle(e.target.value)}
+          required
         />
       </div>
 
@@ -106,6 +121,7 @@ export default function CreateBlogProfessional({
           className="w-full border p-2 rounded"
           value={slug}
           onChange={handleSlugChange}
+          required
         />
         <p className="text-sm text-gray-500 mt-1">
           SEO-friendly URL segment. Aap manually edit kar sakte hain.
@@ -119,6 +135,7 @@ export default function CreateBlogProfessional({
           className="w-full border p-2 rounded"
           value={categoryId}
           onChange={e => setCategoryId(e.target.value)}
+          required
         >
           <option value="">-- Select Category --</option>
           {categories.map(cat => (
@@ -131,13 +148,24 @@ export default function CreateBlogProfessional({
       <div>
         <label className="block mb-1 font-medium">Feature Image</label>
         <input type="file" accept="image/*" onChange={handleFileChange} />
-        {featurePreview && <img src={featurePreview} alt="Preview" className="mt-2 w-32 h-20 object-cover rounded" />}
+        {featurePreview && (
+          <img
+            src={featurePreview}
+            alt="Preview"
+            className="mt-2 w-32 h-20 object-cover rounded"
+          />
+        )}
       </div>
 
       {/* Content */}
       <div>
         <label className="block mb-1 font-medium">Content</label>
-        <MDEditor value={content} onChange={setContent} height={300} visibleDragbar />
+        <MDEditor
+          value={content}
+          onChange={setContent}
+          height={300}
+          visibleDragbar    // ensure correct prop name
+        />
       </div>
 
       {/* Submit */}

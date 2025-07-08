@@ -176,6 +176,7 @@ export default function BlogsTab() {
                   modalMode === 'edit' && currentBlog
                     ? {
                         title:           currentBlog.title,
+                        slug:           currentBlog.slug,
                         content:         currentBlog.content,
                         category:        currentBlog.category?._id,
                         featureImageUrl: currentBlog.featureImage

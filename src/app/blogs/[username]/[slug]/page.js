@@ -1,74 +1,103 @@
-// src/app/blogs/page.js
-import Link from 'next/link';
-import { headers } from 'next/headers';
+// src/app/blogs/[username]/[slug]/page.js
 
-export default async function AllBlogsPage() {
-  const host     = headers().get('host');
-  const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
-  const res      = await fetch(`${protocol}://${host}/api/blogs`, { cache: 'no-store' });
-  const blogs    = await res.json();
+import connectToDatabase from '@/lib/mongodb';
+import Blog from '@/models/Blog';
+import '@/models/User';
+import '@/models/Category';
+import { notFound } from 'next/navigation';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import Link from 'next/link';
+
+export default async function BlogDetailPage({ params }) {
+  const { username, slug } = await params;
+  await connectToDatabase();
+
+  const blog = await Blog.findOne({ slug })
+    .populate('author', 'username')
+    .populate('category', 'name')
+    .lean();
+  if (!blog || blog.author.username !== username) return notFound();
+
+  const recent = await Blog.find({ _id: { $ne: blog._id } })
+    .sort({ createdAt: -1 })
+    .limit(3)
+    .populate('author', 'username')
+    .lean();
+
+  const publishedDate = new Date(blog.createdAt).toLocaleDateString('en-US', {
+    year: 'numeric', month: 'long', day: 'numeric'
+  });
 
   return (
-    <div className="max-w-7xl mx-auto py-12 px-4">
-      <h1 className="text-4xl font-extrabold text-gray-900 mb-8">Blog Archive</h1>
-      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        {blogs.map(b => (
-          <div
-            key={b._id}
-            className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transform hover:-translate-y-1 transition flex flex-col"
-          >
-            <div className="relative h-48">
-              {b.featureImage ? (
-                <img
-                  src={b.featureImage}
-                  alt={b.title}
-                  className="object-cover w-full h-full"
-                />
-              ) : (
-                <div className="bg-gray-200 w-full h-full flex items-center justify-center">
-                  <span className="text-gray-500">No Image</span>
-                </div>
-              )}
-              {b.category?.name && (
-                <span className="absolute top-3 left-3 bg-indigo-600 text-white text-xs font-semibold px-2 py-1 rounded">
-                  {b.category.name}
-                </span>
-              )}
-            </div>
-            <div className="p-6 flex flex-col flex-1">
-              <Link
-                href={`/blogs/${b.author.username}/${b.slug}`}
-                className="text-2xl font-bold text-gray-800 hover:text-indigo-600 mb-2"
-              >
-                {b.title}
-              </Link>
-              <p className="text-sm text-gray-500 mb-4">
-                by{' '}
-                <Link
-                  href={`/blogs/${b.author.username}`}
-                  className="font-medium text-gray-700 hover:underline"
-                >
-                  {b.author.username}
-                </Link>
-              </p>
-              <p className="text-gray-700 flex-1 mb-4">
-                {b.content.length > 120
-                  ? b.content.substring(0, 120) + '...'
-                  : b.content
-                }
-              </p>
-              <div className="mt-auto">
-                <Link
-                  href={`/blogs/${b.author.username}/${b.slug}`}
-                  className="inline-block text-indigo-600 font-medium hover:underline"
-                >
-                  Read More →
-                </Link>
+    <>
+      <Header />
+
+      <div className="max-w-3xl mx-auto py-8 pt-30">
+        {/* Main Blog */}
+        <h1 className="text-3xl font-bold mb-4">{blog.title}</h1>
+        {blog.featureImage && (
+          <img
+            src={blog.featureImage.startsWith('/') ? blog.featureImage : `/${blog.featureImage}`}
+            alt={blog.title}
+            className="w-full h-64 object-cover rounded mb-6"
+          />
+        )}
+        <div className="flex flex-wrap gap-4 text-gray-600 text-sm mb-6">
+          <div><strong>Category:</strong> {blog.category?.name}</div>
+          <div><strong>Author:</strong> {blog.author.username}</div>
+          <div><strong>Published:</strong> {publishedDate}</div>
+        </div>
+        <div className="prose mb-6" dangerouslySetInnerHTML={{ __html: blog.content }} />
+        {blog.attachments?.length > 0 && (
+          <div className="mt-6 mb-8">
+            <h2 className="text-xl font-semibold mb-2">Attachments</h2>
+            {blog.attachments.map(att => (
+              <div key={att.url} className="mt-1">
+                <a href={att.url} download className="text-blue-500 underline">
+                  📎 {att.filename}
+                </a>
               </div>
+            ))}
+          </div>
+        )}
+
+        {/* Recent Blogs Cards */}
+        {recent.length > 0 && (
+          <div className="mt-12">
+            <h2 className="text-2xl font-bold mb-4">Recent Blogs</h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {recent.map(r => {
+                const date = new Date(r.createdAt).toLocaleDateString('en-US', {
+                  year: 'numeric', month: 'short', day: 'numeric'
+                });
+                return (
+                  <Link
+                    key={r._id}
+                    href={`/blogs/${r.author.username}/${r.slug}`}
+                    className="block bg-white rounded-lg shadow hover:shadow-lg transition overflow-hidden"
+                  >
+                    {r.featureImage && (
+                      <img
+                        src={r.featureImage.startsWith('/') ? r.featureImage : `/${r.featureImage}`}
+                        alt={r.title}
+                        className="w-full h-40 object-cover"
+                      />
+                    )}
+                    <div className="p-4">
+                      <h3 className="text-lg font-semibold text-gray-800 mb-2">{r.title}</h3>
+                      <p className="text-sm text-gray-500 mb-1">by {r.author.username}</p>
+                      <p className="text-sm text-gray-500">{date}</p>
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
           </div>
-        ))}
+        )}
       </div>
-    </div>
+
+      <Footer />
+    </>
   );
 }
