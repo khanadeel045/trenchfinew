@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import CreateBlogProfessional from '@/components/CreateBlogProfessional';
+import CreateBlogProfessional from '@/components/CreateBlog';
 
 export default function EditBlogPage() {
   const { id } = useParams();
