@@ -14,7 +14,7 @@ export default function HistoryPage() {
   }, []);
 
   useEffect(() => {
-    fetch('/api/user/history')
+    fetch('/api/users/history')
       .then(res => res.json())
       .then(data => {
         setLiked(data.liked || []);

@@ -62,7 +62,7 @@ export default function CommentSection({ videoId, me, initialCount = 0 }) {
 
   return (
     <>
-      <button onClick={() => setOpen(o => !o)} className="flex items-center gap-1">
+      <button onClick={() => setOpen(o => !o)} className="cursor-pointer flex items-center gap-1">
         💬 <span>{count}</span>
       </button>
 

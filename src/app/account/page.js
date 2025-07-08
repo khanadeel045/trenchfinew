@@ -4,7 +4,12 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Header from '@/components/Header'; // make sure exists
 import Footer from '@/components/Footer'; // make sure exists
-import MyVideosPage from '@/components/MyVideosPage'; // make sure exists
+import MyVideosPage from '@/components/MyVideosPage';
+import FollowersPage from '@/app/account/followers/page';
+import FollowingPage from '@/app/account/following/page';
+import BlogsTab from '@/components/BlogsTab';  // naya import
+
+
 
 export default function MyAccountPage() {
     const router = useRouter();
@@ -69,7 +74,7 @@ export default function MyAccountPage() {
         }
 
         try {
-            const res = await fetch('/api/user', {
+            const res = await fetch('/api/users', {
                 method: 'PATCH',
                 body: form,
             });
@@ -90,32 +95,55 @@ export default function MyAccountPage() {
     return (
         <>
             <Header /> {/* ✅ Global Header */}
-            
+
             <div className="min-h-screen bg-gray-100 py-20 pt-30">
                 <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-4 md:gap-8 px-4 md:px-8">
                     {/* Sidebar */}
                     <aside className="w-full md:w-64 bg-white rounded-lg shadow p-6 md:h-[calc(100vh-10rem)] mb-6 md:mb-0">
                         <h2 className="text-lg font-bold text-gray-800 mb-4">Settings</h2>
-                            <ul className="space-y-3 text-gray-700 font-medium">
-                                <li
-                                    className={`px-4 py-2 rounded cursor-pointer ${activeTab === 'profile' ? 'bg-purple-100 text-purple-700' : 'hover:bg-gray-100'}`}
-                                    onClick={() => setActiveTab('profile')}
-                                >
-                                    Profile Info
-                                </li>
-                                <li
-                                    className={`px-4 py-2 rounded cursor-pointer ${activeTab === 'security' ? 'bg-purple-100 text-purple-700' : 'hover:bg-gray-100'}`}
-                                    onClick={() => setActiveTab('security')}
-                                >
-                                    Security
-                                </li>
-                                <li
-                                    className={`px-4 py-2 rounded cursor-pointer ${activeTab === 'videofeed' ? 'bg-purple-100 text-purple-700' : 'hover:bg-gray-100'}`}
-                                    onClick={() => setActiveTab('videofeed')}
-                                >
-                                    🎥 Video Feed
-                                </li>
-                            </ul>
+                        <ul className="space-y-3 text-gray-700 font-medium">
+                            <li
+                                className={`px-4 py-2 rounded cursor-pointer ${activeTab === 'profile' ? 'bg-purple-100 text-purple-700' : 'hover:bg-gray-100'}`}
+                                onClick={() => setActiveTab('profile')}
+                            >
+                                <span className="mr-2">👤</span> Profile Info
+                            </li>
+                            <li
+                                className={`px-4 py-2 rounded cursor-pointer ${activeTab === 'security' ? 'bg-purple-100 text-purple-700' : 'hover:bg-gray-100'}`}
+                                onClick={() => setActiveTab('security')}
+                            >
+                                <span className="mr-2">🔒</span> Security
+                            </li>
+                            <li
+                                className={`px-4 py-2 rounded cursor-pointer ${activeTab === 'videofeed' ? 'bg-purple-100 text-purple-700' : 'hover:bg-gray-100'}`}
+                                onClick={() => setActiveTab('videofeed')}
+                            >
+                                🎥 Video Feed
+                            </li>
+
+                            <li
+                                className={`px-4 py-2 rounded cursor-pointer ${activeTab === 'followers' ? 'bg-purple-100 text-purple-700' : 'hover:bg-gray-100'}`}
+                                onClick={() => setActiveTab('followers')}
+                            >
+                                👥 Followers
+                            </li>
+                            <li
+                                className={`px-4 py-2 rounded cursor-pointer ${activeTab === 'following' ? 'bg-purple-100 text-purple-700' : 'hover:bg-gray-100'}`}
+                                onClick={() => setActiveTab('following')}
+                            >
+                                ✅ Following
+                            </li>
+                             <li
+                                className={`px-4 py-2 rounded cursor-pointer ${
+                                activeTab === 'blogs'
+                                    ? 'bg-purple-100 text-purple-700'
+                                    : 'hover:bg-gray-100'
+                                }`}
+                                onClick={() => setActiveTab('blogs')}
+                            >
+                                📝 My Blogs
+                            </li>
+                        </ul>
                     </aside>
 
                     {/* Main Form */}
@@ -133,7 +161,7 @@ export default function MyAccountPage() {
                                 />
                                 <div>
                                     <label className="block font-medium text-gray-700 mb-1">Upload Profile Image</label>
-                                    <input type="file" accept="image/*" onChange={handleImageChange}  className='w-full'/>
+                                    <input type="file" accept="image/*" onChange={handleImageChange} className='w-full' />
                                 </div>
                             </div>
 
@@ -216,7 +244,7 @@ export default function MyAccountPage() {
                                             const confirmed = confirm('Are you sure you want to delete your account?');
                                             if (!confirmed) return;
 
-                                            const res = await fetch('/api/user', { method: 'DELETE' });
+                                            const res = await fetch('/api/users', { method: 'DELETE' });
                                             if (res.ok) {
                                                 alert('Account deleted.');
                                                 window.location.href = '/signup';
@@ -319,11 +347,27 @@ export default function MyAccountPage() {
                         </div>
                     )}
 
+                    {activeTab === 'followers' && (
+                        <div className="flex-1 bg-white rounded-lg shadow p-8 md:p-12">
+                            <FollowersPage />
+                        </div>
+                    )}
+
+                    {activeTab === 'following' && (
+                        <div className="flex-1 bg-white rounded-lg shadow p-8 md:p-12">
+                            <FollowingPage  />
+                        </div>
+                    )}
+
+
+
+                    {activeTab === 'blogs' && <BlogsTab />}
+
 
                 </div>
             </div>
             <Footer /> {/* ✅ Global Footer */}
         </>
-    
+
     );
 }

@@ -13,39 +13,55 @@ export default function SignupPage() {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (isLoading) return;
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  if (isLoading) return;
 
-    // Passwords match check
-    if (password !== confirmPassword) {
-      setErrorMsg('Password aur Confirm Password match nahi kar rahe.');
+  // Passwords match check
+  if (password !== confirmPassword) {
+    setErrorMsg('Password aur Confirm Password match nahi kar rahe.');
+    return;
+  }
+
+  setErrorMsg('');
+  setIsLoading(true);
+
+  try {
+    // 1) Signup
+    const res = await fetch('/api/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, password, username }),
+    });
+    const data = await res.json().catch(() => ({}));
+
+    if (!res.ok) {
+      setErrorMsg(data.message || 'Something Went Wrong!');
       return;
     }
 
-    setErrorMsg('');
-    setIsLoading(true);
+    // 2) Auto-login
+    const loginRes = await fetch('/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    });
+    const loginData = await loginRes.json().catch(() => ({}));
 
-    try {
-      const res = await fetch('/api/signup', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, password, username }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        setErrorMsg(data.message || 'Something Went Wrong!');
-        setIsLoading(false);
-      } else {
-        router.push('/login');
-      }
-    } catch (err) {
-      setErrorMsg('Network error');
-      setIsLoading(false);
+    if (!loginRes.ok) {
+      setErrorMsg(loginData.message || 'Auto-login failed!');
+      return;
     }
-  };
+
+    // 3) Redirect to account page
+    router.push('/account');
+  } catch (err) {
+    setErrorMsg('Network error');
+  } finally {
+    setIsLoading(false);
+  }
+};
+
 
   return (
     <div className="flex min-h-screen">

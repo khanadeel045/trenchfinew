@@ -6,7 +6,7 @@ import { MoreVertical } from 'lucide-react';
 const mockVideos = [
   {
     id: '1',
-    user: { name: 'Trader-Marcus', avatar: '/avatars/marcus.jpg' },
+    user: { name: 'Trader-Marcus', avatar: '/default-avatar.jpg' },
     timestamp: '14 min ago',
     thumbnail: '/thumbnails/video1.jpg',
     tokenTag: '#Dodge',
@@ -14,7 +14,7 @@ const mockVideos = [
   },
   {
     id: '2',
-    user: { name: 'Trader-Lila', avatar: '/avatars/lila.jpg' },
+    user: { name: 'Trader-Lila', avatar: '/default-avatar.jpg' },
     timestamp: '22 min ago',
     thumbnail: '/thumbnails/video2.jpg',
     tokenTag: '#Solana',
@@ -22,7 +22,7 @@ const mockVideos = [
   },
   {
     id: '3',
-    user: { name: 'Trader-Jay', avatar: '/avatars/jay.jpg' },
+    user: { name: 'Trader-Jay', avatar: '/default-avatar.jpg' },
     timestamp: '30 min ago',
     thumbnail: '/thumbnails/video3.jpg',
     tokenTag: '#ETH',
