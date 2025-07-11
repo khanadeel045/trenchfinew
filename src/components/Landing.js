@@ -72,17 +72,6 @@ const Landing = () => {
 
             {/* Device Mockups */}
             <div>
-              {/* Main hero image with laptop and mobile */}
-              <div className="flex items-center justify-center -mt-40">
-                <Image
-                  src="/landingpage/Group 237.png"
-                  alt="SIETE Platform Mockup"
-                  width={900}
-                  height={600}
-                  className="w-[700px] h-[600px]"
-                  priority
-                />
-              </div>
               
               {/* Additional vector elements if needed */}
               <div className="absolute -top-4 -right-4 opacity-50">
