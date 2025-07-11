@@ -87,12 +87,12 @@ export default function TestimonialsSection() {
                     
                     <svg width="369" height="372" viewBox="0 0 369 372" fill="none" xmlns="http://www.w3.org/2000/svg" className="absolute top-[-200px] left-[-150px]"> 
                       <g filter="url(#filter0_f_634_516)">
-                        <ellipse cx="59.5" cy="61" rx="59.5" ry="61" transform="matrix(-1 0 0 1 244 125)" fill="#9300E3" fill-opacity="0.65" />
-                        <path d="M184.5 125.6C151.984 125.6 125.6 152.628 125.6 186C125.6 219.372 151.984 246.4 184.5 246.4C217.016 246.4 243.4 219.372 243.4 186C243.4 152.628 217.016 125.6 184.5 125.6Z" stroke="#D7D0D0" stroke-width="1.2" />
+                        <ellipse cx="59.5" cy="61" rx="59.5" ry="61" transform="matrix(-1 0 0 1 244 125)" fill="#9300E3" fillOpacity="0.65" />
+                        <path d="M184.5 125.6C151.984 125.6 125.6 152.628 125.6 186C125.6 219.372 151.984 246.4 184.5 246.4C217.016 246.4 243.4 219.372 243.4 186C243.4 152.628 217.016 125.6 184.5 125.6Z" stroke="#D7D0D0" strokeWidth="1.2" />
                       </g>
                       <defs>
-                        <filter id="filter0_f_634_516" x="0" y="0" width="369" height="372" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                        <filter id="filter0_f_634_516" x="0" y="0" width="369" height="372" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+                          <feFlood floodOpacity="0" result="BackgroundImageFix" />
                           <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
                           <feGaussianBlur stdDeviation="62.5" result="effect1_foregroundBlur_634_516" />
                         </filter>
