@@ -39,12 +39,24 @@ const LandingHeader = () => {
             className="text-white hover:text-white/80 transition-colors duration-300 font-medium text-lg"
           >
             Features
+          </a>          
+          <a 
+            href="/videofeed" 
+            className="text-white hover:text-white/80 transition-colors duration-300 font-medium text-lg"
+          >
+            Video Feed
           </a>
           <a 
             href="/launchpad" 
             className="text-white hover:text-white/80 transition-colors duration-300 font-medium text-lg"
           >
             Launchpad
+          </a>
+          <a 
+            href="/account" 
+            className="text-white hover:text-white/80 transition-colors duration-300 font-medium text-lg"
+          >
+            Account
           </a>
         </nav>
 

@@ -49,7 +49,7 @@ export default function MyVideosPage() {
       )}
 
       {videos.map(video => (
-        <div key={video._id} className="w-100 bg-gray-900 rounded-lg overflow-hidden shadow-lg">
+        <div key={video._id} className="w-64 bg-gray-900 rounded-lg overflow-hidden shadow-lg">
           <div className="p-4 border-b border-gray-700 flex justify-between items-center">
             <div>
               <p className="text-sm text-gray-400">

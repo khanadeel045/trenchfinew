@@ -111,33 +111,35 @@ export default function MyVideosPage() {
 
       {videos.length === 0 && <p className="text-gray-500">No videos uploaded yet.</p>}
 
-      {videos.map(video => (
-        <div key={video._id} className="bg-gray-900 rounded-lg overflow-hidden shadow">
-          <div className="p-4 border-b border-gray-700 flex justify-between items-center">
-            <p className="text-sm text-gray-400">⏱️ {new Date(video.createdAt).toLocaleString()}</p>
-            <button
-              onClick={() => handleDelete(video._id)}
-              className="text-red-500 text-sm hover:underline"
-            >
-              🗑 Delete
-            </button>
+      <div className='flex gap-10 flex-wrap'>  
+        {videos.map(video => (
+          <div key={video._id} className="w-80 bg-gray-900 rounded-lg overflow-hidden shadow">
+            <div className="p-4 border-b border-gray-700 flex justify-between items-center">
+              <p className="text-sm text-gray-400">⏱️ {new Date(video.createdAt).toLocaleString()}</p>
+              <button
+                onClick={() => handleDelete(video._id)}
+                className="text-red-500 text-sm hover:underline"
+              >
+                🗑 Delete
+              </button>
+            </div>
+            <video
+              controls
+              src={video.videoUrl}
+              className="w-full"
+              preload="metadata"
+              playsInline
+              controlsList="nodownload noplaybackrate"
+              onContextMenu={(e) => e.preventDefault()}
+            />
+            <div className="p-4">
+              <h3 className="text-white text-lg font-semibold">{video.title}</h3>
+              <p className="text-gray-400 text-sm">{video.description}</p>
+            </div>
           </div>
-          <video
-            controls
-            src={video.videoUrl}
-            className="w-full"
-            preload="metadata"
-            playsInline
-            controlsList="nodownload noplaybackrate"
-            onContextMenu={(e) => e.preventDefault()}
-          />
-          <div className="p-4">
-            <h3 className="text-white text-lg font-semibold">{video.title}</h3>
-            <p className="text-gray-400 text-sm">{video.description}</p>
-          </div>
-        </div>
-      ))}
+        ))}
 
+      </div>
       {/* Upload Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center">
