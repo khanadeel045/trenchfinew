@@ -88,7 +88,6 @@ const Landing = () => {
               <div className="absolute -top-4 -right-4 opacity-50">
                 <Image
                   src="/landingpage/Vector-1.png"
-                  alt="Vector decoration"
                   width={40}
                   height={40}
                 />
@@ -97,7 +96,6 @@ const Landing = () => {
               <div className="absolute -bottom-4 -left-4 opacity-50">
                 <Image
                   src="/landingpage/Vector.png"
-                  alt="Vector decoration"
                   width={40}
                   height={40}
                 />
