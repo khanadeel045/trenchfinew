@@ -108,7 +108,7 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto border-t border-white-500  mt-8 mb-8"></div>
 
       <p className="text-white-300 text-sm text-center">
-        &copy; {new Date().getFullYear()} Siete. All rights reserved.
+        &copy;2025 Siete. All rights reserved.
       </p>
 
 <img src={"/footer/circle.svg"} className="absolute bottom-0" />

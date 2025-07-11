@@ -8,6 +8,7 @@ import MyVideosPage from '@/components/MyVideosPage';
 import FollowersPage from '@/app/account/followers/page';
 import FollowingPage from '@/app/account/following/page';
 import BlogsTab from '@/components/BlogsTab';  // naya import
+import MembershipTab from '@/components/MembershipTab';
 
 
 
@@ -33,10 +34,14 @@ export default function MyAccountPage() {
                 if (!res.ok) return router.push('/login');
                 const data = await res.json();
 
-                setFormData((prev) => ({
-                    ...prev,
-                    name: data.name || '',
-                }));
+                setFormData({
+                name: data.name || '',
+                language: data.language || 'English',
+                dob: data.dob || '',
+                country: data.country || 'Pakistan',
+                timezone: data.timezone || 'UTC +5 (PKT)',
+                });
+
                 console.log(data)
                 if (data.profileImage) {
                     setProfilePreview(data.profileImage);
@@ -143,6 +148,16 @@ export default function MyAccountPage() {
                             >
                                 📝 My Blogs
                             </li>
+
+                            <li
+                                className={`px-4 py-2 rounded cursor-pointer ${
+                                    activeTab === 'membership' ? 'bg-purple-100 text-purple-700' : 'hover:bg-gray-100'
+                                }`}
+                                onClick={() => setActiveTab('membership')}
+                                >
+                                💎 Membership
+                            </li>
+
                         </ul>
                     </aside>
 
@@ -363,6 +378,13 @@ export default function MyAccountPage() {
 
                     {activeTab === 'blogs' && <BlogsTab />}
 
+
+
+                    {activeTab === 'membership' && (
+                    <div className="flex-1 bg-white rounded-lg shadow p-8 md:p-12">
+                        <MembershipTab />
+                    </div>
+                    )}
 
                 </div>
             </div>

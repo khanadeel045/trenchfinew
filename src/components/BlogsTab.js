@@ -33,13 +33,13 @@ export default function BlogsTab() {
     load();
   }, []);
 
-  useEffect(() => {
-    if (blogs.length) {
-      blogs.forEach(b =>
-        console.log('FeatureImage path for blog', b._id, ':', b.featureImage)
-      );
-    }
-  }, [blogs]);
+  // useEffect(() => {
+  //   if (blogs.length) {
+  //     blogs.forEach(b =>
+  //       console.log('FeatureImage path for blog', b._id, ':', b.featureImage)
+  //     );
+  //   }
+  // }, [blogs]);
 
   const refreshBlogs = async () => {
     const res  = await fetch('/api/blogs', { cache: 'no-store' });

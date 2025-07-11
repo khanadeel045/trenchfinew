@@ -7,12 +7,11 @@ export default function CommentSection({ videoId, me, initialCount = 0 }) {
   const [open, setOpen]       = useState(false);
   const [list, setList]       = useState([]);
   const [text, setText]       = useState('');
-  const [editing, setEditing] = useState(null);        // commentId | null
+  const [editing, setEditing] = useState(null);
   const [count, setCount]     = useState(initialCount);
 
   const myId = me?._id || me?.id;
 
-  /* ---- single fetch helper ---- */
   const load = useCallback(async () => {
     const res = await fetch(`/api/videos/${videoId}/comments`);
     if (res.ok) {
@@ -22,12 +21,10 @@ export default function CommentSection({ videoId, me, initialCount = 0 }) {
     }
   }, [videoId]);
 
-  /* ---- fetch once when opened ---- */
   useEffect(() => {
     if (open) load();
   }, [open, load]);
 
-  /* ---- add new ---- */
   const add = async () => {
     const res = await fetch(`/api/videos/${videoId}/comments`, {
       method : 'POST',
@@ -36,10 +33,9 @@ export default function CommentSection({ videoId, me, initialCount = 0 }) {
     });
     if (!res.ok) return toast.error('Error adding comment');
     setText('');
-    await load();                       // refresh list/count once
+    await load();
   };
 
-  /* ---- save edit ---- */
   const saveEdit = async () => {
     const res = await fetch(`/api/videos/${videoId}/comments/${editing}`, {
       method : 'PATCH',
@@ -52,7 +48,6 @@ export default function CommentSection({ videoId, me, initialCount = 0 }) {
     await load();
   };
 
-  /* ---- delete ---- */
   const del = async (cid) => {
     if (!confirm('Delete this comment?')) return;
     const res = await fetch(`/api/videos/${videoId}/comments/${cid}`, { method: 'DELETE' });
@@ -62,70 +57,83 @@ export default function CommentSection({ videoId, me, initialCount = 0 }) {
 
   return (
     <>
-      <button onClick={() => setOpen(o => !o)} className="cursor-pointer flex items-center gap-1">
-        💬 <span>{count}</span>
+      <button onClick={() => setOpen(true)} className="text-white hover:text-blue-400 flex flex-col items-center">
+        💬
+        <span className="text-xs">{count}</span>
       </button>
 
       {open && (
-        <div className="w-full mt-3 space-y-3">
-          {list.map(c => {
-            const mine = myId && String(c.userId?._id) === String(myId);
-            return (
-              <div key={c._id} className="text-sm flex items-start gap-2">
-                <b>{c.userId?.username || 'Anon'}:</b>
+        <div className="fixed inset-0 z-50 bg-black bg-opacity-70 flex justify-center items-center px-4">
+          <div className="bg-[#1a1a1a] text-white w-full max-w-md max-h-[90vh] overflow-y-auto rounded-lg p-4 relative">
+            <button
+              onClick={() => setOpen(false)}
+              className="absolute top-2 right-3 text-gray-400 hover:text-white text-lg"
+            >
+              ✕
+            </button>
+            <h2 className="text-lg font-semibold mb-3">Comments</h2>
 
-                {editing === c._id ? (
-                  <>
-                    <input
-                      value={text}
-                      onChange={e => setText(e.target.value)}
-                      className="flex-1 bg-gray-800 text-white text-xs px-1 rounded"
-                    />
-                    <button onClick={saveEdit} className="text-green-400 text-xs">Save</button>
-                    <button onClick={() => { setEditing(null); setText(''); }} className="text-gray-400 text-xs">X</button>
-                  </>
-                ) : (
-                  <>
-                    <span className="flex-1 break-words">{c.text}</span>
-                    {mine && (
+            <div className="space-y-3">
+              {list.map(c => {
+                const mine = myId && String(c.userId?._id) === String(myId);
+                return (
+                  <div key={c._id} className="text-sm flex items-start gap-2">
+                    <b>{c.userId?.username || 'Anon'}:</b>
+
+                    {editing === c._id ? (
                       <>
-                        <button
-                          onClick={() => { setEditing(c._id); setText(c.text); }}
-                          className="text-yellow-400 text-xs"
-                        >
-                          Edit
-                        </button>
-                        <button
-                          onClick={() => del(c._id)}
-                          className="text-red-400 text-xs"
-                        >
-                          Del
-                        </button>
+                        <input
+                          value={text}
+                          onChange={e => setText(e.target.value)}
+                          className="flex-1 bg-gray-800 text-white text-xs px-1 rounded"
+                        />
+                        <button onClick={saveEdit} className="text-green-400 text-xs">Save</button>
+                        <button onClick={() => { setEditing(null); setText(''); }} className="text-gray-400 text-xs">X</button>
+                      </>
+                    ) : (
+                      <>
+                        <span className="flex-1 break-words">{c.text}</span>
+                        {mine && (
+                          <>
+                            <button
+                              onClick={() => { setEditing(c._id); setText(c.text); }}
+                              className="text-yellow-400 text-xs"
+                            >
+                              Edit
+                            </button>
+                            <button
+                              onClick={() => del(c._id)}
+                              className="text-red-400 text-xs"
+                            >
+                              Del
+                            </button>
+                          </>
+                        )}
                       </>
                     )}
-                  </>
-                )}
-              </div>
-            );
-          })}
-
-          {me && !editing && (
-            <div className="flex gap-2">
-              <input
-                value={text}
-                onChange={e => setText(e.target.value)}
-                className="flex-1 p-1 bg-gray-800 text-white text-xs rounded"
-                placeholder="Add comment..."
-              />
-              <button
-                onClick={add}
-                disabled={!text.trim()}
-                className="px-3 bg-indigo-600 rounded text-xs"
-              >
-                Send
-              </button>
+                  </div>
+                );
+              })}
             </div>
-          )}
+
+            {me && !editing && (
+              <div className="flex gap-2 mt-4">
+                <input
+                  value={text}
+                  onChange={e => setText(e.target.value)}
+                  className="flex-1 p-1 bg-gray-800 text-white text-xs rounded"
+                  placeholder="Add comment..."
+                />
+                <button
+                  onClick={add}
+                  disabled={!text.trim()}
+                  className="px-3 bg-indigo-600 rounded text-xs"
+                >
+                  Send
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       )}
     </>

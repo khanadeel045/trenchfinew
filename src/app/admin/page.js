@@ -40,6 +40,7 @@ export default async function AdminPage() {
       <ul>
         <li><Link href="/admin/users">Manage Users</Link></li>
         <li><Link href="/admin/badges">Badge Requests</Link></li>
+        <li><Link href="/admin/memberships">Memberships</Link></li>
       </ul>
     </div>
 

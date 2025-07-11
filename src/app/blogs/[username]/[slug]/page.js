@@ -1,4 +1,5 @@
 // src/app/blogs/[username]/[slug]/page.js
+import { requireMembershipAccess } from '@/lib/requireMembershipAccess';
 
 import connectToDatabase from '@/lib/mongodb';
 import Blog from '@/models/Blog';
@@ -10,6 +11,19 @@ import Footer from '@/components/Footer';
 import Link from 'next/link';
 
 export default async function BlogDetailPage({ params }) {
+
+    const user = await requireMembershipAccess('/blogs');
+  
+    if (!user) {
+      return (
+        <div className="min-h-screen flex items-center justify-center text-red-500 text-xl">
+          ❌ Access denied. Upgrade your membership to view this page.
+        </div>
+      );
+    }
+
+
+    
   const { username, slug } = await params;
   await connectToDatabase();
 

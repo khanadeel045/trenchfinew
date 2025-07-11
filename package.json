@@ -9,6 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chakra-ui/react": "^3.22.0",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@heroicons/react": "^2.2.0",
     "@uiw/react-markdown-preview": "^5.1.4",
     "@uiw/react-md-editor": "^4.0.7",
     "bcryptjs": "^3.0.2",
@@ -16,6 +20,7 @@
     "draft-js": "^0.11.7",
     "draftjs-to-html": "^0.9.1",
     "formidable": "^3.5.4",
+    "framer-motion": "^12.23.0",
     "html-to-draftjs": "^1.5.0",
     "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",

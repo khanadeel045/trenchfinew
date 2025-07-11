@@ -16,10 +16,7 @@ async function connectToDatabase() {
       throw new Error('MONGODB_URI is not defined in environment variables');
     }
     cached.promise = mongoose
-      .connect(process.env.MONGODB_URI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      })
+      .connect(process.env.MONGODB_URI)
       .then((mongoose) => mongoose);
   }
   cached.conn = await cached.promise;

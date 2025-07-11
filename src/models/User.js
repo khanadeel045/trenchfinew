@@ -17,6 +17,18 @@ const UserSchema = new mongoose.Schema({
   // nayi fields:
   followers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   following: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+
+
+  membership: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Membership',
+    default: null,
+  },
+  membershipExpiresAt: {
+    type: Date,
+    default: null,
+  },
+
 });
 
 export default mongoose.models.User || mongoose.model('User', UserSchema);
