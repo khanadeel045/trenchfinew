@@ -3,8 +3,6 @@ import { requireMembershipAccess } from '@/lib/requireMembershipAccess';
 import VideoHero from '@/components/VideoHero';
 import VideoFeed from '@/components/VideoFeed';
 import VideoFeedSection from '@/components/VideoFeedSection';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 
 export default async function VideoFeedPage() {
 
@@ -20,14 +18,9 @@ export default async function VideoFeedPage() {
     }
   return (
     <>
-        {/* <Header /> */}
-        {/* <VideoHero />
-        <VideoFeedSection /> */}
-            <div className="max-w-xl mx-auto">
-            {/* <h1 className="text-3xl font-bold mb-6 text-white">All Public Videos</h1> */}
-            <VideoFeed />
-            </div>
-        {/* <Footer /> */}
+      <div className="max-w-xl mx-auto">
+      <VideoFeed />
+      </div>
     </>
     
   );
