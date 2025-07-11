@@ -7,7 +7,7 @@ import User from '@/models/User';
 export async function GET(request) {
   await connectToDatabase();
 
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const token = cookieStore.get('token')?.value || '';
   const user = verifyToken(token);
   const myId = user?._id || user?.id ? String(user._id || user.id) : null;
