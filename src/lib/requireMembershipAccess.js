@@ -5,7 +5,7 @@ import User from '@/models/User';
 import Membership from '@/models/Membership';
 
 export async function requireMembershipAccess(path) {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const token = cookieStore.get('token')?.value || '';
   const user = verifyToken(token);
   if (!user?.id) return null;
