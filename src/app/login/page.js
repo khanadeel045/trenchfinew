@@ -42,12 +42,14 @@ export default function LoginPage() {
       <div className="w-full lg:w-1/2 bg-white flex flex-col items-center justify-center px-6 lg:px-12 py-8">
         {/* Logo */}
         <div className="mb-6">
-          <img src="/logo.png" alt="Logo" />
+          <a href="/">
+            <img src="/logo.png" alt="Logo" />
+          </a>
         </div>
 
         <h2 className="text-3xl font-semibold mb-2 text-gray-800">Welcome Back 👋</h2>
         <p className="text-gray-500 mb-8 text-center">
-          Today is a new day. It’s your day. You shape it.<br />
+          Today is a new day. It’s your day. You shape itaaa.<br />
           Sign in to start managing your projects.
         </p>
 
@@ -62,7 +64,7 @@ export default function LoginPage() {
             placeholder="Example@email.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full border border-gray-300 rounded px-3 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-purple-400"
+            className="w-full border border-gray-300 rounded px-3 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:text-black text-black"
             required
             disabled={isLoading} // disable input while loading
           />
@@ -73,7 +75,7 @@ export default function LoginPage() {
             placeholder="At least 8 characters"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full border border-gray-300 rounded px-3 py-2 mb-2 focus:outline-none focus:ring-2 focus:ring-purple-400"
+            className="w-full border border-gray-300 rounded px-3 py-2 mb-2 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:text-black text-black"
             required
             disabled={isLoading} // disable input while loading
           />
@@ -119,18 +121,18 @@ export default function LoginPage() {
 
         {/* Social Buttons */}
         <div className="w-full max-w-sm space-y-4">
-          <button
-            className={`
+          <button title='Coming Soon'
+            className={` cursor-not-allowed
               w-full flex items-center justify-center border border-gray-300 rounded py-2
               hover:bg-gray-100 transition
               ${isLoading ? 'opacity-50 pointer-events-none' : ''}
             `}
           >
             <Image src="/google.svg" alt="Google" width={20} height={20} />
-            <span className="ml-2 text-gray-700">Sign in with Google</span>
+            <span className="ml-2 text-gray-700" >Sign in with Google</span> 
           </button>
-          <button
-            className={`
+          <button title='Coming Soon'
+            className={` cursor-not-allowed
               w-full flex items-center justify-center border border-gray-300 rounded py-2
               hover:bg-gray-100 transition
               ${isLoading ? 'opacity-50 pointer-events-none' : ''}

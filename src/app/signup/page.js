@@ -19,7 +19,7 @@ const handleSubmit = async (e) => {
 
   // Passwords match check
   if (password !== confirmPassword) {
-    setErrorMsg('Password aur Confirm Password match nahi kar rahe.');
+    setErrorMsg('Password and Confirm Password are not same.');
     return;
   }
 
@@ -151,7 +151,7 @@ const handleSubmit = async (e) => {
         </div>
 
         {/* Heading & Subtitle */}
-        <h2 className="text-3xl font-bold mb-2">Sign Up & Start <span className="text-[#8787FB]">Trading</span> Smarter</h2>
+        <h2 className="text-3xl font-bold mb-2 text-black">Sign Up & Start <span className="text-[#8787FB]">Trading</span> Smarter</h2>
         <p className="text-gray-600 mb-6">
           Create your free account to access real-time <br /> insights, charts, and token trends.
         </p>
@@ -173,7 +173,7 @@ const handleSubmit = async (e) => {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:text-black text-black"
               placeholder="Your full name"
               required
               disabled={isLoading}
@@ -191,7 +191,7 @@ const handleSubmit = async (e) => {
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:text-black text-black"
               placeholder="Your Username"
               required
               disabled={isLoading}
@@ -208,7 +208,7 @@ const handleSubmit = async (e) => {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:text-black text-black"
               placeholder="example@email.com"
               required
               disabled={isLoading}
@@ -225,7 +225,7 @@ const handleSubmit = async (e) => {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:text-black text-black"
               placeholder="At least 8 characters"
               required
               disabled={isLoading}
@@ -242,7 +242,7 @@ const handleSubmit = async (e) => {
               type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:text-black text-black"
               placeholder="Re-enter your password"
               required
               disabled={isLoading}
@@ -298,18 +298,18 @@ const handleSubmit = async (e) => {
         </div>
 
         {/* Social Signup Buttons */}
-        <button
+        <button  title='Coming Soon'
           type="button"
-          className={`w-full flex items-center justify-center border border-gray-300 rounded py-2 hover:bg-gray-100 transition mb-4
+          className={` cursor-not-allowed text-black w-full flex items-center justify-center border border-gray-300 rounded py-2 hover:bg-gray-100 transition mb-4
             ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
           disabled={isLoading}
         >
           <img src="/google.svg" alt="Google icon" className="h-5 w-5 mr-2" />
           Signup with Google
         </button>
-        <button
+        <button  title='Coming Soon'
           type="button"
-          className={`w-full flex items-center justify-center border border-gray-300 rounded py-2 hover:bg-gray-100 transition
+          className={` cursor-not-allowed text-black w-full flex items-center justify-center border border-gray-300 rounded py-2 hover:bg-gray-100 transition
             ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
           disabled={isLoading}
         >
