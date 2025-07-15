@@ -73,15 +73,6 @@ const Landing = () => {
             {/* Device Mockups */}
             <div>
               
-              {/* Additional vector elements if needed */}
-              <div className="absolute -top-4 -right-4 opacity-50">
-                <Image
-                  src="/landingpage/Vector-1.png"
-                  width={40}
-                  height={40}
-                />
-              </div>
-              
               <div className="absolute -bottom-4 -left-4 opacity-50">
                 <Image
                   src="/landingpage/Vector.png"
