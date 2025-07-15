@@ -18,17 +18,9 @@ export default async function VideoFeedPage() {
     }
   return (
     <>
-<div
-  className="min-h-screen"
-style={{
-  backgroundImage: `
-    linear-gradient(45deg, #0D2242 35%, transparent 90%),
-    linear-gradient(45deg, #1BD2A0 0%, transparent 90%),
-    linear-gradient(45deg, #FFB037 100%)`
-}}
->      
-    <div className="max-w-xl mx-auto">
-      <VideoFeed />
+    <div  className="min-h-screen">      
+      <div className="max-w-xl mx-auto">
+        <VideoFeed />
       </div>
     </div>
     </>

@@ -16,7 +16,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className=" bg-[linear-gradient(to_right,_#8787FB,_#505095)] text-white pt-16 pb-8 relative overflow-hidden">
+    <footer className="bg-[#071a3a]/10 backdrop-blur-md border border-white/20 text-white pt-16 pb-8 relative overflow-hidden">
 
       <img src={"footer/bg.svg"} className="absolute right-0 top-0 w-[400px]" />
 

@@ -12,10 +12,12 @@ export default function Header() {
 
   const navItems = [
     { label: 'Home', href: '/' },
-    { label: 'Trenches', href: '/trenches' },
+    { label: 'Trenches', href: '/comingsoon' },
     { label: 'Video Feed', href: '/videofeed' },
-    { label: 'Live Streamx', href: '/live-streamx' },
-    { label: 'AI Chat bot', href: '/ai-chat-bot' },
+    { label: 'Live Streamx', href: '/comingsoon' },
+    { label: 'Features', href: '/comingsoon' },
+    { label: 'AI Chat bot', href: '/comingsoon' },
+    { label: 'Launchpad', href: '/comingsoon' },
     { label: 'Account', href: '/account' },
   ];
 
@@ -44,12 +46,12 @@ export default function Header() {
     <header className="absolute z-[999] left-0 right-0 flex justify-center p-4 bg-transparent">
       <div className="flex items-center max-w-7xl w-full px-4 md:px-0">
         {/* Logo Pill */}
-        <div className="flex-none bg-[#8787FB] rounded-full px-8 py-3 shadow-md cursor-pointer">
+        <div className="flex-none bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-8 py-3 shadow-md cursor-pointer">
           <img src="/headerlogo.png" alt="Logo" className="h-8 w-auto" />
         </div>
 
         {/* Nav Pill */}
-        <div className="relative flex-grow flex items-center bg-[#8787FB] rounded-full px-6 py-3 shadow-lg ml-4">
+        <div className="relative flex-grow flex items-center bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-6 py-3 shadow-lg ml-4">
           {/* Desktop Links */}
           <ul className="hidden md:flex items-center space-x-6 text-white font-semibold">
             {navItems.map(({ label, href }) => (
@@ -73,17 +75,12 @@ export default function Header() {
                     href="/signup"
                     className="bg-white text-black font-bold px-4 py-2 rounded-full shadow hover:bg-gray-100 transition"
                   >
-                    Sign up
+                    Join Beta
                   </a>
                 </>
               )
             )}
 
-            <button aria-label="Toggle Dark Mode" className="hover:text-gray-200 transition rounded-full bg-[#F4F4F4] p-2">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="#8787FB" viewBox="0 0 24 24" stroke="none">
-                <path d="M12 3c.132 0 .263.007.393.02a9 9 0 109.586 9.586A7.5 7.5 0 0112 3z" />
-              </svg>
-            </button>
           </div>
 
           {/* Mobile Hamburger */}
@@ -125,22 +122,13 @@ export default function Header() {
                       href="/signup"
                       className="bg-white text-black font-bold px-4 py-2 rounded-full shadow hover:bg-gray-100 transition block text-center"
                     >
-                      Sign up
+                      Beta
                     </a>
                   </li>
                 </>
               )
             )}
-            <li className="pt-2">
-              <button
-                aria-label="Toggle Dark Mode"
-                className="hover:text-gray-200 transition rounded-full bg-[#F4F4F4] p-2 text-black"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="#8787FB" viewBox="0 0 24 24" stroke="none">
-                  <path d="M12 3c.132 0 .263.007.393.02a9 9 0 109.586 9.586A7.5 7.5 0 0112 3z" />
-                </svg>
-              </button>
-            </li>
+
           </ul>
         )}
       </div>

@@ -11,7 +11,7 @@ export default function SecurePlatformSection() {
   ];
 
   return (
-    <section className="py-16 sm:py-20 bg-white relative overflow-hidden">
+    <section className="py-16 sm:py-20  bg-[#061524] relative overflow-hidden">
       <img
         src="/SecurePlatformSection/sidelines.svg"
         alt="Sidelines"

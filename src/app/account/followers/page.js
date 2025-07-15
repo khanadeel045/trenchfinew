@@ -22,12 +22,12 @@ export default function FollowersPage() {
 
   return (
     <div className="">
-      <h1 className="text-2xl font-bold">Followers</h1>
+      <h1 className="text-2xl text-white font-bold">Followers</h1>
 
       {me.followers.map(user => (
         <div
           key={user._id}
-          className="flex items-center justify-between p-2 border rounded"
+          className="flex items-center justify-between p-2 border rounded text-white"
         >
           <div className="flex items-center gap-3">
             <img
@@ -61,7 +61,7 @@ export default function FollowersPage() {
       ))}
 
       {me.followers.length === 0 && (
-        <p className="text-gray-500 text-center">You don't have any follower.</p>
+        <p className="text-white text-center">You don't have any follower.</p>
       )}
     </div>
   );

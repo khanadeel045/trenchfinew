@@ -94,7 +94,7 @@ export default function MyVideosPage() {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-bold text-gray-800">My Uploaded Videos</h2>
+        <h2 className="text-xl font-bold text-white">My Uploaded Videos</h2>
         <button
           onClick={() => setShowModal(true)}
           className="bg-purple-600 text-white px-4 py-2 rounded"
@@ -109,13 +109,13 @@ export default function MyVideosPage() {
         </div>
       )}
 
-      {videos.length === 0 && <p className="text-gray-500">No videos uploaded yet.</p>}
+      {videos.length === 0 && <p className="text-white">No videos uploaded yet.</p>}
 
       <div className='flex gap-10 flex-wrap'>  
         {videos.map(video => (
           <div key={video._id} className="w-80 bg-gray-900 rounded-lg overflow-hidden shadow">
             <div className="p-4 border-b border-gray-700 flex justify-between items-center">
-              <p className="text-sm text-gray-400">⏱️ {new Date(video.createdAt).toLocaleString()}</p>
+              <p className="text-sm text-white">⏱️ {new Date(video.createdAt).toLocaleString()}</p>
               <button
                 onClick={() => handleDelete(video._id)}
                 className="text-red-500 text-sm hover:underline"
@@ -134,7 +134,7 @@ export default function MyVideosPage() {
             />
             <div className="p-4">
               <h3 className="text-white text-lg font-semibold">{video.title}</h3>
-              <p className="text-gray-400 text-sm">{video.description}</p>
+              <p className="text-white text-sm">{video.description}</p>
             </div>
           </div>
         ))}
@@ -145,7 +145,7 @@ export default function MyVideosPage() {
         <div className="fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center">
           <div className="bg-white rounded-lg p-6 w-full max-w-md relative transition-all duration-300">
             <button
-              className="absolute top-2 right-3 text-gray-600 text-xl"
+              className="absolute top-2 right-3 text-white text-xl"
               onClick={() => setShowModal(false)}
             >
               ×
@@ -189,7 +189,7 @@ export default function MyVideosPage() {
               </button>
             </form>
             {message && (
-              <div className="mt-4 text-sm text-center text-gray-700 transition-opacity duration-500">
+              <div className="mt-4 text-sm text-center text-white transition-opacity duration-500">
                 {message}
               </div>
             )}

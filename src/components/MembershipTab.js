@@ -32,7 +32,7 @@ export default function MembershipTab() {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-6">💎 My Membership</h2>
+      <h2 className="text-2xl text-white font-bold mb-6">💎 My Membership</h2>
 
       <div className="mb-10 bg-gray-100 p-5 rounded-lg">
         {currentPlan ? (
@@ -40,32 +40,32 @@ export default function MembershipTab() {
             <div className="flex items-center gap-2">
               <p className="text-lg font-semibold">{currentPlan.name}</p>
               {isTrialActive && (
-                <span className="bg-yellow-400 text-black text-xs font-bold px-2 py-1 rounded-full">
+                <span className="bg-yellow-400 text-white text-xs font-bold px-2 py-1 rounded-full">
                   Free Trial Active
                 </span>
               )}
             </div>
-            <p className="text-sm text-gray-600">{currentPlan.description}</p>
+            <p className="text-sm">{currentPlan.description}</p>
             <p className="mt-2 text-sm">
               <strong>Expires:</strong>{' '}
               {new Date(me.membershipExpiresAt).toLocaleDateString()}
             </p>
             {remainingDays > 0 && (
-              <p className="text-xs text-gray-500">⏳ {remainingDays} day(s) remaining</p>
+              <p className="text-xs">⏳ {remainingDays} day(s) remaining</p>
             )}
           </>
         ) : (
-          <p className="text-yellow-600">No active membership yet.</p>
+          <p className="text-yellow-600 text-white">No active membership yet.</p>
         )}
       </div>
 
-      <h3 className="text-xl font-semibold mb-4">Upgrade or Switch Plan</h3>
+      <h3 className="text-xl font-semibold mb-4 text-white">Upgrade or Switch Plan</h3>
       <div className="grid md:grid-cols-2 gap-6">
         {plans
           .filter(p => p._id !== currentPlan?._id)
           .map(plan => (
             <div key={plan._id} className="bg-gray-200 p-4 rounded-lg">
-              <h4 className="text-lg font-bold flex items-center gap-2">
+              <h4 className="text-lg font-bold flex items-center gap-2 ">
                 {plan.name}
                 {plan.hasFreeTrial && (
                   <span className="bg-yellow-400 text-black text-xs font-bold px-2 py-1 rounded-full">

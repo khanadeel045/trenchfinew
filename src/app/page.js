@@ -1,14 +1,14 @@
 // Basic Page Template
 'use client';
 
-import LandingHeader from '@/components/LandingHeader';
+import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Landing from '@/components/Landing';
 
 export default function LandingPage() {
   return (
     <>
-      <LandingHeader />
+      <Header />
       <Landing />
     </>
   );

@@ -35,11 +35,11 @@ export default function MyAccountPage() {
                 const data = await res.json();
 
                 setFormData({
-                name: data.name || '',
-                language: data.language || 'English',
-                dob: data.dob || '',
-                country: data.country || 'Pakistan',
-                timezone: data.timezone || 'UTC +5 (PKT)',
+                    name: data.name || '',
+                    language: data.language || 'English',
+                    dob: data.dob || '',
+                    country: data.country || 'Pakistan',
+                    timezone: data.timezone || 'UTC +5 (PKT)',
                 });
 
                 console.log(data)
@@ -101,60 +101,59 @@ export default function MyAccountPage() {
         <>
             <Header /> {/* ✅ Global Header */}
 
-            <div className="min-h-screen bg-gray-100 py-20 pt-30">
+            <div className="min-h-screen py-20 pt-30"
+            >
                 <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-4 md:gap-8 px-4 md:px-8">
                     {/* Sidebar */}
-                    <aside className="w-full md:w-64 bg-white rounded-lg shadow p-6 md:h-[calc(100vh-10rem)] mb-6 md:mb-0">
-                        <h2 className="text-lg font-bold text-gray-800 mb-4">Settings</h2>
-                        <ul className="space-y-3 text-gray-700 font-medium">
+                    <aside className="w-full md:w-64 bg-[#061524] rounded-lg shadow p-6 md:h-[calc(100vh-10rem)] mb-6 md:mb-0">
+                        <h2 className="text-lg font-bold text-white mb-4">Settings</h2>
+                        <ul className="space-y-3 text-white font-medium">
                             <li
-                                className={`px-4 py-2 rounded cursor-pointer ${activeTab === 'profile' ? 'bg-purple-100 text-purple-700' : 'hover:bg-gray-100'}`}
+                                className={`px-4 py-2 rounded cursor-pointer ${activeTab === 'profile' ? 'bg-purple-100 text-purple-700' : 'hover:bg-gray-500'}`}
                                 onClick={() => setActiveTab('profile')}
                             >
                                 <span className="mr-2">👤</span> Profile Info
                             </li>
                             <li
-                                className={`px-4 py-2 rounded cursor-pointer ${activeTab === 'security' ? 'bg-purple-100 text-purple-700' : 'hover:bg-gray-100'}`}
+                                className={`px-4 py-2 rounded cursor-pointer ${activeTab === 'security' ? 'bg-purple-100 text-purple-700' : 'hover:bg-gray-500'}`}
                                 onClick={() => setActiveTab('security')}
                             >
                                 <span className="mr-2">🔒</span> Security
                             </li>
                             <li
-                                className={`px-4 py-2 rounded cursor-pointer ${activeTab === 'videofeed' ? 'bg-purple-100 text-purple-700' : 'hover:bg-gray-100'}`}
+                                className={`px-4 py-2 rounded cursor-pointer ${activeTab === 'videofeed' ? 'bg-purple-100 text-purple-700' : 'hover:bg-gray-500'}`}
                                 onClick={() => setActiveTab('videofeed')}
                             >
                                 🎥 Video Feed
                             </li>
 
                             <li
-                                className={`px-4 py-2 rounded cursor-pointer ${activeTab === 'followers' ? 'bg-purple-100 text-purple-700' : 'hover:bg-gray-100'}`}
+                                className={`px-4 py-2 rounded cursor-pointer ${activeTab === 'followers' ? 'bg-purple-100 text-purple-700' : 'hover:bg-gray-500'}`}
                                 onClick={() => setActiveTab('followers')}
                             >
                                 👥 Followers
                             </li>
                             <li
-                                className={`px-4 py-2 rounded cursor-pointer ${activeTab === 'following' ? 'bg-purple-100 text-purple-700' : 'hover:bg-gray-100'}`}
+                                className={`px-4 py-2 rounded cursor-pointer ${activeTab === 'following' ? 'bg-purple-100 text-purple-700' : 'hover:bg-gray-500'}`}
                                 onClick={() => setActiveTab('following')}
                             >
                                 ✅ Following
                             </li>
-                             <li
-                                className={`px-4 py-2 rounded cursor-pointer ${
-                                activeTab === 'blogs'
-                                    ? 'bg-purple-100 text-purple-700'
-                                    : 'hover:bg-gray-100'
-                                }`}
+                            <li
+                                className={`px-4 py-2 rounded cursor-pointer ${activeTab === 'blogs'
+                                        ? 'bg-purple-100 text-purple-700'
+                                        : 'hover:bg-gray-500'
+                                    }`}
                                 onClick={() => setActiveTab('blogs')}
                             >
                                 📝 My Blogs
                             </li>
 
                             <li
-                                className={`px-4 py-2 rounded cursor-pointer ${
-                                    activeTab === 'membership' ? 'bg-purple-100 text-purple-700' : 'hover:bg-gray-100'
-                                }`}
+                                className={`px-4 py-2 rounded cursor-pointer ${activeTab === 'membership' ? 'bg-purple-100 text-purple-700' : 'hover:bg-gray-500'
+                                    }`}
                                 onClick={() => setActiveTab('membership')}
-                                >
+                            >
                                 💎 Membership
                             </li>
 
@@ -164,8 +163,8 @@ export default function MyAccountPage() {
                     {/* Main Form */}
                     {activeTab === 'profile' && (
 
-                        <div className="flex-1 bg-white rounded-lg shadow p-8 md:p-12">
-                            <h1 className="text-2xl font-bold text-gray-800 mb-6">Profile Information</h1>
+                        <div className="flex-1  bg-[#061524] rounded-lg shadow p-8 md:p-12">
+                            <h1 className="text-2xl font-bold text-white mb-6">Profile Information</h1>
 
                             {/* Profile Image Upload */}
                             <div className="mb-6 flex items-center gap-4">
@@ -175,30 +174,30 @@ export default function MyAccountPage() {
                                     className="w-20 h-20 rounded-full object-cover border"
                                 />
                                 <div>
-                                    <label className="block font-medium text-gray-700 mb-1">Upload Profile Image</label>
-                                    <input type="file" accept="image/*" onChange={handleImageChange} className='w-full' />
+                                    <label className="block font-medium text-white mb-1">Upload Profile Image</label>
+                                    <input type="file" accept="image/*" onChange={handleImageChange} className='w-full text-white cursor-pointer' />
                                 </div>
                             </div>
 
                             <form onSubmit={handleSave} className="space-y-6">
                                 <div>
-                                    <label className="block mb-1 text-gray-700 font-medium">Name</label>
+                                    <label className="block mb-1 text-white font-medium">Name</label>
                                     <input
                                         type="text"
                                         name="name"
                                         value={formData.name}
                                         onChange={handleChange}
-                                        className="w-full border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
+                                        className="w-full bg-white border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
                                     />
                                 </div>
 
                                 <div>
-                                    <label className="block mb-1 text-gray-700 font-medium">Language</label>
+                                    <label className="block mb-1 text-white font-medium">Language</label>
                                     <select
                                         name="language"
                                         value={formData.language}
                                         onChange={handleChange}
-                                        className="w-full border px-4 py-2 rounded"
+                                        className="w-full bg-white border px-4 py-2 rounded"
                                     >
                                         <option>English</option>
                                         <option>Urdu</option>
@@ -207,23 +206,23 @@ export default function MyAccountPage() {
                                 </div>
 
                                 <div>
-                                    <label className="block mb-1 text-gray-700 font-medium">Date of Birth</label>
+                                    <label className="block mb-1 text-white font-medium">Date of Birth</label>
                                     <input
                                         type="date"
                                         name="dob"
                                         value={formData.dob}
                                         onChange={handleChange}
-                                        className="w-full border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
+                                        className="w-full bg-white border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
                                     />
                                 </div>
 
                                 <div>
-                                    <label className="block mb-1 text-gray-700 font-medium">Country</label>
+                                    <label className="block mb-1 text-white font-medium">Country</label>
                                     <select
                                         name="country"
                                         value={formData.country}
                                         onChange={handleChange}
-                                        className="w-full border px-4 py-2 rounded"
+                                        className="w-full bg-white border px-4 py-2 rounded"
                                     >
                                         <option>Pakistan</option>
                                         <option>USA</option>
@@ -233,12 +232,12 @@ export default function MyAccountPage() {
                                 </div>
 
                                 <div>
-                                    <label className="block mb-1 text-gray-700 font-medium">Timezone</label>
+                                    <label className="block mb-1 text-white font-medium">Timezone</label>
                                     <select
                                         name="timezone"
                                         value={formData.timezone}
                                         onChange={handleChange}
-                                        className="w-full border px-4 py-2 rounded"
+                                        className="w-full bg-white border px-4 py-2 rounded"
                                     >
                                         <option>UTC +5 (PKT)</option>
                                         <option>UTC +0 (GMT)</option>
@@ -281,8 +280,8 @@ export default function MyAccountPage() {
                     {/* Security Section */}
                     {activeTab === 'security' && (
 
-                        <div className="flex-1 bg-white rounded-lg shadow p-8 md:p-12">
-                            <h2 className="text-xl font-bold text-gray-800 mb-6">Change Password</h2>
+                        <div className="flex-1  bg-[#061524] rounded-lg shadow p-8 md:p-12">
+                            <h2 className="text-xl font-bold text-white mb-6">Change Password</h2>
 
                             <form
                                 onSubmit={async (e) => {
@@ -313,31 +312,31 @@ export default function MyAccountPage() {
                             >
                                 {/* Full width: current password */}
                                 <div>
-                                    <label className="block mb-1 text-gray-700 font-medium">Current Password</label>
+                                    <label className="block mb-1 text-white font-medium">Current Password</label>
                                     <input
                                         type="password"
                                         name="currentPassword"
-                                        className="w-full border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
+                                        className="w-full bg-white  border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
                                         required
                                     />
                                 </div>
 
                                 {/* Half width: new + confirm */}
                                 <div>
-                                    <label className="block mb-1 text-gray-700 font-medium">New Password</label>
+                                    <label className="block mb-1 text-white font-medium">New Password</label>
                                     <input
                                         type="password"
                                         name="newPassword"
-                                        className="w-full border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
+                                        className="w-full bg-white border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
                                         required
                                     />
                                 </div>
                                 <div>
-                                    <label className="block mb-1 text-gray-700 font-medium">Confirm New Password</label>
+                                    <label className="block mb-1 text-white font-medium">Confirm New Password</label>
                                     <input
                                         type="password"
                                         name="confirmPassword"
-                                        className="w-full border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
+                                        className="w-full bg-white  border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
                                         required
                                     />
                                 </div>
@@ -357,20 +356,20 @@ export default function MyAccountPage() {
 
 
                     {activeTab === 'videofeed' && (
-                        <div className="flex-1 bg-white rounded-lg shadow p-8 md:p-12">
+                        <div className="flex-1  bg-[#061524] rounded-lg shadow p-8 md:p-12">
                             <MyVideosPage />
                         </div>
                     )}
 
                     {activeTab === 'followers' && (
-                        <div className="flex-1 bg-white rounded-lg shadow p-8 md:p-12">
+                        <div className="flex-1  bg-[#061524] rounded-lg shadow p-8 md:p-12">
                             <FollowersPage />
                         </div>
                     )}
 
                     {activeTab === 'following' && (
-                        <div className="flex-1 bg-white rounded-lg shadow p-8 md:p-12">
-                            <FollowingPage  />
+                        <div className="flex-1  bg-[#061524] rounded-lg shadow p-8 md:p-12">
+                            <FollowingPage />
                         </div>
                     )}
 
@@ -381,9 +380,9 @@ export default function MyAccountPage() {
 
 
                     {activeTab === 'membership' && (
-                    <div className="flex-1 bg-white rounded-lg shadow p-8 md:p-12">
-                        <MembershipTab />
-                    </div>
+                        <div className="flex-1  bg-[#061524] rounded-lg shadow p-8 md:p-12">
+                            <MembershipTab />
+                        </div>
                     )}
 
                 </div>

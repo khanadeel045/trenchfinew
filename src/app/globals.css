@@ -24,3 +24,14 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+/* src/app/globals.css */
+body.trenchfi-gradient {
+  /* teen-layer diagonal gradient */
+  background-image:
+    linear-gradient(45deg, #0D2242 35%, transparent 90%),
+    linear-gradient(45deg, #1BD2A0 0%,    transparent 90%),
+    linear-gradient(45deg, #FFB037 100%);
+  background-repeat: no-repeat;
+  background-size: cover;   /* full-screen fill */
+  background-attachment: fixed; /* scroll par parallax feel */
+}

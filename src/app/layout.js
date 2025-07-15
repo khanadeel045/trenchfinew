@@ -9,7 +9,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body suppressHydrationWarning={true}>
+      <body suppressHydrationWarning={true} className='trenchfi-gradient'>
         {children}
       </body>
     </html>

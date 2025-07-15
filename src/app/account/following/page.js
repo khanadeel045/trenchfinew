@@ -23,11 +23,11 @@ export default function FollowingPage() {
 
   return (
     <div className="">
-      <h1 className="text-2xl font-bold mb-4">Following</h1>
+      <h1 className="text-2xl text-white font-bold mb-4">Following</h1>
 
       {following.length > 0 ? (
         following.map(user => (
-          <div key={user._id} className="flex items-center justify-between p-2 border rounded mb-2">
+          <div key={user._id} className="flex items-center justify-between p-2 border rounded mb-2 text-white">
             <div className="flex items-center gap-3">
               <img
                 src={user.profileImage || '/default-avatar.jpg'}
@@ -56,7 +56,7 @@ export default function FollowingPage() {
           </div>
         ))
       ) : (
-        <p className="text-gray-500">You have no Following.</p>
+        <p className="text-white">You have no Following.</p>
       )}
     </div>
   );
