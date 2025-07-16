@@ -4,18 +4,18 @@ FROM node:18
 # Set working directory
 WORKDIR /app
 
-# Copy package files and install deps
+# Copy package files and install deps (with legacy peer deps)
 COPY package*.json ./
-RUN npm install
+RUN npm install --legacy-peer-deps
 
-# Copy all code
+# Copy rest of the app
 COPY . .
 
-# Build the app
+# Build app
 RUN npm run build
 
-# Expose the app port
+# Expose port
 EXPOSE 3000
 
-# Start the app
+# Start app
 CMD ["npm", "start"]
