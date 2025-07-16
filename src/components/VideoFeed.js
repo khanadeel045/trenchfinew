@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import CommentSection from '@/components/CommentSection';
-import { HomeIcon } from '@heroicons/react/24/outline';
+import { HomeIcon,CurrencyDollarIcon,TvIcon,UserIcon,FlagIcon } from '@heroicons/react/24/outline';
 
 export default function VideoFeed() {
   const [videos, setVideos] = useState([]);
@@ -239,14 +239,28 @@ export default function VideoFeed() {
 
       </div>
 
-
-        <div className="w-full bottom-0 z-50 flex justify-around items-center bg-black/80 backdrop-blur-md py-3 border-t border-white/10 text-white text-sm">
-          <button className="flex flex-col items-center gap-1">🏠<span className="text-xs">Home</span></button>
-          <button className="flex flex-col items-center gap-1">💰<span className="text-xs">Trade</span></button>
-          <button className="flex flex-col items-center gap-1">📺<span className="text-xs">Live</span></button>
-          <button className="flex flex-col items-center gap-1">👤<span className="text-xs">Profile</span></button>
-          <button className="flex flex-col items-center gap-1">🚩<span className="text-xs">Report</span></button>
-        </div>
+      <div className="w-full bottom-0 z-50 flex justify-around items-center bg-black/80 backdrop-blur-md py-3 border-t border-white/10 text-white text-xs">
+        <button className="flex flex-col items-center gap-1">
+          <HomeIcon className="h-6 w-6" />
+          <span>Home</span>
+        </button>
+        <button className="flex flex-col items-center gap-1">
+          <CurrencyDollarIcon className="h-6 w-6" />
+          <span>Trade</span>
+        </button>
+        <button className="flex flex-col items-center gap-1">
+          <TvIcon className="h-6 w-6" />
+          <span>Live</span>
+        </button>
+        <button className="flex flex-col items-center gap-1">
+          <UserIcon className="h-6 w-6" />
+          <span>Profile</span>
+        </button>
+        <button className="flex flex-col items-center gap-1">
+          <FlagIcon className="h-6 w-6" />
+          <span>Report</span>
+        </button>
+      </div>
   </div>
 
   );
