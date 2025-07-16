@@ -103,7 +103,7 @@ export default function Header() {
 
         {/* Mobile Dropdown */}
         {mobileMenuOpen && (
-          <ul className="absolute top-15 left-6 w-[90%] bg-[#8787FB] rounded-lg px-6 py-4 flex flex-col space-y-2">
+          <ul className="absolute top-15 left-6 w-[90%] bg-[#061524] rounded-lg px-6 py-4 flex flex-col space-y-2">
             {navItems.map(({ label, href }) => (
               <li key={label} className="text-white font-semibold hover:text-gray-200 transition">
                 <a href={href}>{label}</a>
