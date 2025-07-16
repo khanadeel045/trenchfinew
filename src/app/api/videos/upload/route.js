@@ -25,30 +25,32 @@ export async function POST(req) {
     const buffer = Buffer.from(bytes);
 
     const userId = user._id || user.id;
-    const uploadsRoot = path.join('/app/public/uploads');
-    const userDir = path.join(uploadsRoot, userId);
+    const userDir = path.join('/app/public/uploads', userId);
     await mkdir(userDir, { recursive: true });
 
+    // ✅ Slugify title
     const slug = title
       .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '_')
-      .replace(/^_|_$/g, '');
+      .replace(/[^a-z0-9]+/g, '_') // replace non-alphanumeric with underscore
+      .replace(/^_|_$/g, '');      // remove starting/ending underscores
 
+    // ✅ Timestamp
     const timestamp = new Date().toISOString().replace(/[-:.TZ]/g, '');
-    const ext = file.name.split('.').pop();
-    const filename = `${slug}_${timestamp}.${ext}`;
 
+    // ✅ Extension
+    const ext = file.name.split('.').pop();
+
+    // ✅ Final filename
+    const filename = `${slug}_${timestamp}.${ext}`;
     const uploadPath = path.join(userDir, filename);
     await writeFile(uploadPath, buffer);
 
     await connectToDatabase();
-
     const newVideo = await Video.create({
       userId,
       title,
       description,
-      // ✅ Dynamic API path so no need to redeploy
-      videoUrl: `/api/uploads/${userId}/${filename}`,
+      videoUrl: `/uploads/${userId}/${filename}`,
       isPrivate,
     });
 
