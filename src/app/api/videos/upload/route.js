@@ -25,7 +25,7 @@ export async function POST(req) {
     const buffer = Buffer.from(bytes);
 
     const userId = user._id || user.id;
-    const userDir = path.join(process.cwd(), 'public/uploads', userId);
+    const userDir = path.join('/app/public/uploads', userId);
     await mkdir(userDir, { recursive: true });
 
     // ✅ Slugify title
