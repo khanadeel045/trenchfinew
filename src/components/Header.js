@@ -53,6 +53,7 @@ export default function Header() {
             alt="Logo"
             width={128} // apni desired width
             height={20} // apni desired height (h-8 = 32px)
+            className="h-8 w-auto" 
           />
         </div>
 
