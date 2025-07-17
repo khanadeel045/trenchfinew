@@ -28,7 +28,7 @@ export async function POST(req) {
 
     // **Yahan par correct public/uploads path set ho rahi hai**
     const projectRoot = process.cwd();  // e.g. /home/ubuntu/trenchfinew
-    const userDir = path.join(projectRoot, 'public', 'uploads', userId);
+    const userDir = path.join(projectRoot, 'uploads', userId);
     await mkdir(userDir, { recursive: true });
 
     // Slugify, timestamp, extension
