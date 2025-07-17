@@ -52,7 +52,7 @@ export default function Header() {
             src="/headerlogo.png"
             alt="Logo"
             width={128} // apni desired width
-            height={32} // apni desired height (h-8 = 32px)
+            height={20} // apni desired height (h-8 = 32px)
           />
         </div>
 
