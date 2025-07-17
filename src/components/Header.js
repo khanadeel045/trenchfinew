@@ -45,10 +45,12 @@ export default function Header() {
   return (
     <header className="absolute z-[999] left-0 right-0 flex justify-center p-4 bg-transparent">
       <div className="flex items-center max-w-7xl w-full px-4 md:px-0">
-        {/* Logo Pill */}
-        <div className="flex-none bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-8 py-3 shadow-md cursor-pointer">
-          <img src="/headerlogo.png" alt="Logo" className="h-8 w-auto" />
-        </div>
+      <Image
+        src="/headerlogo.png"
+        alt="Logo"
+        width={128} // apni desired width
+        height={32} // apni desired height (h-8 = 32px)
+      />
 
         {/* Nav Pill */}
         <div className="relative flex-grow flex items-center bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-6 py-3 shadow-lg ml-4">

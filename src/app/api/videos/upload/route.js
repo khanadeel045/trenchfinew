@@ -28,7 +28,7 @@ export async function POST(req) {
 
     // **Yahan par correct public/uploads path set ho rahi hai**
     const projectRoot = process.cwd();  // e.g. /home/ubuntu/trenchfinew
-    const userDir = path.join(projectRoot, 'uploads', userId);
+    const userDir = path.join(projectRoot, 'upload_dir', userId);
     await mkdir(userDir, { recursive: true });
 
     // Slugify, timestamp, extension
@@ -50,7 +50,7 @@ export async function POST(req) {
       userId,
       title,
       description,
-      videoUrl: `/uploads/${userId}/${filename}`,
+      videoUrl: `/upload_dir/${userId}/${filename}`,
       isPrivate,
     });
 

@@ -28,7 +28,7 @@ export async function DELETE(_, { params }) {
 
   // ✅ Delete video file from disk
   try {
-    const filePath = path.join(process.cwd(), 'public', video.videoUrl);
+    const filePath = path.join(process.cwd(), video.videoUrl);
     await unlink(filePath);
     console.log('✅ File deleted:', filePath);
   } catch (err) {
