@@ -56,7 +56,7 @@ export async function PATCH(req) {
       const buffer = Buffer.from(await file.arrayBuffer());
       const ext = file.name.split('.').pop();
       const fileName = `${randomUUID()}.${ext}`;
-      const uploadDir = path.join(process.cwd(), 'public', 'uploads');
+      const uploadDir = path.join(process.cwd(), 'upload_dir');
 
       if (!fs.existsSync(uploadDir)) {
         fs.mkdirSync(uploadDir, { recursive: true });
@@ -66,7 +66,7 @@ export async function PATCH(req) {
       fs.writeFileSync(filePath, buffer);
 
       // Save image URL relative to public
-      user.profileImage = `/uploads/${fileName}`;
+      user.profileImage = `/upload_dir/${fileName}`;
     }
 
     await user.save();
