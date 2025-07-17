@@ -145,7 +145,7 @@ export default function MyVideosPage() {
         <div className="fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center">
           <div className="bg-white rounded-lg p-6 w-full max-w-md relative transition-all duration-300">
             <button
-              className="absolute top-2 right-3 text-white text-xl"
+              className="absolute top-2 right-3 text-black text-xl"
               onClick={() => setShowModal(false)}
             >
               ×
