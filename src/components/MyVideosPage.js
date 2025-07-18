@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 
 export default function MyVideosPage() {
-  const [uploading, setUploading] = useState(false); // ✅ yeh line add karo
+    const [uploading, setUploading] = useState(false); // ✅ yeh line add karo
 
   const [videos, setVideos] = useState([]);
   const [me, setMe] = useState(null);
@@ -142,14 +142,14 @@ export default function MyVideosPage() {
             </div>
             <video
               controls
-              src={`${window.location.origin}/upload_dir/${video.userId}/${video.fileName}`}
+              src={video.videoUrl}
               className="w-full"
               preload="metadata"
               playsInline
               controlsList="nodownload noplaybackrate"
               onContextMenu={(e) => e.preventDefault()}
             />
-
+            
             <div className="p-4">
               <h3 className="text-white text-lg font-semibold">{video.title}</h3>
               <p className="text-white text-sm">{video.description}</p>
@@ -185,24 +185,24 @@ export default function MyVideosPage() {
                 className="w-full border px-3 py-2 rounded  text-black"
               />
 
-              <label className="inline-block border border-gray-400 px-4 py-2 rounded cursor-pointer bg-white text-black font-semibold hover:bg-gray-100 transition">
-                Choose Video
-                <input
-                  type="file"
-                  accept="video/*"
-                  onChange={(e) => {
-                    const file = e.target.files[0];
-                    setUploadForm({ ...uploadForm, file });
-                    setSelectedFileName(file?.name || '');
-                  }}
-                  className="hidden"
-                  required
-                />
-              </label>
+<label className="inline-block border border-gray-400 px-4 py-2 rounded cursor-pointer bg-white text-black font-semibold hover:bg-gray-100 transition">
+  Choose Video
+  <input
+    type="file"
+    accept="video/*"
+    onChange={(e) => {
+      const file = e.target.files[0];
+      setUploadForm({ ...uploadForm, file });
+      setSelectedFileName(file?.name || '');
+    }}
+    className="hidden"
+    required
+  />
+</label>
 
-              {selectedFileName && (
-                <p className="mt-2 text-sm text-gray-700">🎬 Selected: <span className="font-medium">{selectedFileName}</span></p>
-              )}
+{selectedFileName && (
+  <p className="mt-2 text-sm text-gray-700">🎬 Selected: <span className="font-medium">{selectedFileName}</span></p>
+)}
 
 
               {/* <label className="flex gap-2 items-center">
