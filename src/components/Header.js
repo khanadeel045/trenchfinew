@@ -72,7 +72,18 @@ export default function Header() {
           <div className="hidden md:flex items-center space-x-4 ml-auto text-white">
             {authChecked && (
               isLoggedIn ? (
-                <span className="font-semibold"><a href="account">👋 {user?.name}</a></span>
+                <>
+                  <span className="font-semibold"><a href="account">👋 {user?.name}</a></span>
+                  <button
+                    onClick={async () => {
+                      await fetch('/api/logout', { method: 'POST' });
+                      window.location.href = '/';
+                    }}
+                    className="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded-full transition cursor-pointer"
+                  >
+                    Logout
+                  </button>
+                </>
               ) : (
                 <>
                   <a href="/login" className="hover:text-gray-200 font-semibold transition">

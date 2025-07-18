@@ -163,7 +163,7 @@ export default function BlogsTab() {
           <div className="relative bg-white w-full max-w-3xl rounded-lg shadow-xl mt-20">
             <button
               onClick={() => setShowModal(false)}
-              className="absolute top-3 right-3 text-white hover:text-white"
+              className="absolute top-3 right-3 text-black hover:text-white"
             >
               <X size={24} />
             </button>
