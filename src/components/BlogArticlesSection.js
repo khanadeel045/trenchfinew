@@ -56,7 +56,7 @@ export default function BlogArticlesSection() {
       <div className="max-w-7xl mx-auto px-6">
         {/* Heading */}
         <h2 className="text-3xl font-bold mb-2">
-          Our <span className="text-[#8787FB]">Blog</span> &amp; Articles
+          Our <span className="text-white">Blog</span> &amp; Articles
         </h2>
         <p className="text-gray-600 mb-8">
           Explore the latest insights and updates from the SIETE team.
