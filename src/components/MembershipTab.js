@@ -38,20 +38,20 @@ export default function MembershipTab() {
         {currentPlan ? (
           <>
             <div className="flex items-center gap-2">
-              <p className="text-lg font-semibold">{currentPlan.name}</p>
+              <p className="text-lg font-semibold  text-black">{currentPlan.name}</p>
               {isTrialActive && (
-                <span className="bg-yellow-400 text-white text-xs font-bold px-2 py-1 rounded-full">
+                <span className="bg-yellow-400 text-xs  text-black font-bold px-2 py-1 rounded-full">
                   Free Trial Active
                 </span>
               )}
             </div>
-            <p className="text-sm">{currentPlan.description}</p>
-            <p className="mt-2 text-sm">
+            <p className="text-sm text-black">{currentPlan.description}</p>
+            <p className="mt-2 text-sm  text-black">
               <strong>Expires:</strong>{' '}
               {new Date(me.membershipExpiresAt).toLocaleDateString()}
             </p>
             {remainingDays > 0 && (
-              <p className="text-xs">⏳ {remainingDays} day(s) remaining</p>
+              <p className="text-xs  text-black">⏳ {remainingDays} day(s) remaining</p>
             )}
           </>
         ) : (
@@ -64,7 +64,7 @@ export default function MembershipTab() {
         {plans
           .filter(p => p._id !== currentPlan?._id)
           .map(plan => (
-            <div key={plan._id} className="bg-gray-200 p-4 rounded-lg">
+            <div key={plan._id} className="bg-gray-200 p-4 rounded-lg  text-black">
               <h4 className="text-lg font-bold flex items-center gap-2 ">
                 {plan.name}
                 {plan.hasFreeTrial && (

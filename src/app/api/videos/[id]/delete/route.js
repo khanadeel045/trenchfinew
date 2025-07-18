@@ -5,7 +5,10 @@ import { verifyToken } from '@/utils/auth';
 import { unlink } from 'fs/promises';
 import path from 'path';
 
-export async function DELETE(_, { params }) {
+export async function DELETE(_, context) {
+  const { params } = await context; // ✅ Await context
+  const videoId = params.id;
+
   await connectToDatabase();
 
   const cookieStore = await cookies();
@@ -16,7 +19,7 @@ export async function DELETE(_, { params }) {
     return new Response('Unauthorized', { status: 401 });
   }
 
-  const video = await Video.findById(params.id);
+  const video = await Video.findById(videoId);
 
   if (!video) {
     return new Response('Video not found', { status: 404 });
@@ -26,7 +29,6 @@ export async function DELETE(_, { params }) {
     return new Response('Forbidden', { status: 403 });
   }
 
-  // ✅ Delete video file from disk
   try {
     const filePath = path.join(process.cwd(), video.videoUrl);
     await unlink(filePath);
@@ -35,8 +37,7 @@ export async function DELETE(_, { params }) {
     console.warn('⚠️ Failed to delete video file:', err.message);
   }
 
-  // ✅ Delete from MongoDB
-  await Video.findByIdAndDelete(params.id);
+  await Video.findByIdAndDelete(videoId);
 
   return new Response(JSON.stringify({ success: true }), { status: 200 });
 }

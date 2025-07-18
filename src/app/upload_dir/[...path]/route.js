@@ -3,9 +3,9 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import mime from 'mime';
 
-export async function GET(request, { params }) {
-  // params.path is array of path segments, e.g. ['6859…', 'file.mp4']
-  const segments = params.path;
+export async function GET(request, context) {
+  const { path: segments } = await context.params;  // ✅ await params
+
   const filePath = path.join(process.cwd(), 'upload_dir', ...segments);
 
   try {

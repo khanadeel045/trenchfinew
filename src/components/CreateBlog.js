@@ -103,10 +103,10 @@ export default function CreateBlogProfessional({
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* Title */}
       <div>
-        <label className="block mb-1 font-medium">Title</label>
+        <label className="block mb-1 font-medium text-black">Title</label>
         <input
           type="text"
-          className="w-full border p-2 rounded"
+          className="w-full border p-2 rounded text-black"
           value={title}
           onChange={e => setTitle(e.target.value)}
           required
@@ -115,24 +115,24 @@ export default function CreateBlogProfessional({
 
       {/* Permalink (Slug) */}
       <div>
-        <label className="block mb-1 font-medium">Permalink (Slug)</label>
+        <label className="block mb-1 font-medium text-black">Permalink (Slug)</label>
         <input
           type="text"
-          className="w-full border p-2 rounded"
+          className="w-full border p-2 rounded text-black"
           value={slug}
           onChange={handleSlugChange}
           required
         />
-        <p className="text-sm text-gray-500 mt-1">
-          SEO-friendly URL segment. Aap manually edit kar sakte hain.
+        <p className="text-sm  text-black mt-1">
+          SEO-friendly URL
         </p>
       </div>
 
       {/* Category */}
       <div>
-        <label className="block mb-1 font-medium">Category</label>
+        <label className="block mb-1 font-medium text-black">Category</label>
         <select
-          className="w-full border p-2 rounded"
+          className="w-full border p-2 rounded text-black"
           value={categoryId}
           onChange={e => setCategoryId(e.target.value)}
           required
@@ -146,20 +146,20 @@ export default function CreateBlogProfessional({
 
       {/* Feature Image */}
       <div>
-        <label className="block mb-1 font-medium">Feature Image</label>
+        <label className="block mb-1 font-medium text-black">Feature Image</label>
         <input type="file" accept="image/*" onChange={handleFileChange} />
         {featurePreview && (
           <img
             src={featurePreview}
             alt="Preview"
-            className="mt-2 w-32 h-20 object-cover rounded"
+            className="mt-2 w-32 h-20 object-cover rounded text-black"
           />
         )}
       </div>
 
       {/* Content */}
       <div>
-        <label className="block mb-1 font-medium">Content</label>
+        <label className="block mb-1 font-medium text-black">Content</label>
         <MDEditor
           value={content}
           onChange={setContent}

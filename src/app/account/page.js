@@ -37,7 +37,7 @@ export default function MyAccountPage() {
                 setFormData({
                     name: data.name || '',
                     language: data.language || 'English',
-                    dob: data.dob || '',
+                    dob: data.dob || '2000-01-01',
                     country: data.country || 'Pakistan',
                     timezone: data.timezone || 'UTC +5 (PKT)',
                 });
@@ -141,8 +141,8 @@ export default function MyAccountPage() {
                             </li>
                             <li
                                 className={`px-4 py-2 rounded cursor-pointer ${activeTab === 'blogs'
-                                        ? 'bg-purple-100 text-purple-700'
-                                        : 'hover:bg-gray-500'
+                                    ? 'bg-purple-100 text-purple-700'
+                                    : 'hover:bg-gray-500'
                                     }`}
                                 onClick={() => setActiveTab('blogs')}
                             >
@@ -165,19 +165,29 @@ export default function MyAccountPage() {
 
                         <div className="flex-1  bg-[#061524] rounded-lg shadow p-8 md:p-12">
                             <h1 className="text-2xl font-bold text-white mb-6">Profile Information</h1>
-
                             {/* Profile Image Upload */}
                             <div className="mb-6 flex items-center gap-4">
-                                <img
-                                    src={profilePreview}
-                                    alt="Profile"
-                                    className="w-20 h-20 rounded-full object-cover border"
-                                />
-                                <div>
-                                    <label className="block font-medium text-white mb-1">Upload Profile Image</label>
-                                    <input type="file" accept="image/*" onChange={handleImageChange} className='w-full text-white cursor-pointer' />
+                                <div className="relative">
+                                    <img
+                                        src={profilePreview}
+                                        alt="Profile"
+                                        className="w-20 h-20 rounded-full object-cover border"
+                                    />
+
+                                    {/* Overlay plus button */}
+                                    <label className="absolute bottom-0 right-0 bg-purple-600 text-white rounded-full w-6 h-6 flex items-center justify-center cursor-pointer hover:bg-purple-700 border-2 border-white shadow">
+                                        +
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            onChange={handleImageChange}
+                                            className="hidden"
+                                        />
+                                    </label>
                                 </div>
+
                             </div>
+
 
                             <form onSubmit={handleSave} className="space-y-6">
                                 <div>
@@ -187,7 +197,7 @@ export default function MyAccountPage() {
                                         name="name"
                                         value={formData.name}
                                         onChange={handleChange}
-                                        className="w-full bg-white border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
+                                        className="w-full bg-white border px-4 py-2  text-black rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
                                     />
                                 </div>
 
@@ -197,7 +207,7 @@ export default function MyAccountPage() {
                                         name="language"
                                         value={formData.language}
                                         onChange={handleChange}
-                                        className="w-full bg-white border px-4 py-2 rounded"
+                                        className="w-full bg-white border px-4 py-2 rounded text-black"
                                     >
                                         <option>English</option>
                                         <option>Urdu</option>
@@ -212,7 +222,8 @@ export default function MyAccountPage() {
                                         name="dob"
                                         value={formData.dob}
                                         onChange={handleChange}
-                                        className="w-full bg-white border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
+                                        className="w-full bg-white text-black border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
+                                        placeholder='Enter DOb'
                                     />
                                 </div>
 
@@ -222,7 +233,7 @@ export default function MyAccountPage() {
                                         name="country"
                                         value={formData.country}
                                         onChange={handleChange}
-                                        className="w-full bg-white border px-4 py-2 rounded"
+                                        className="w-full bg-white border px-4 py-2 rounded text-black"
                                     >
                                         <option>Pakistan</option>
                                         <option>USA</option>
@@ -237,7 +248,7 @@ export default function MyAccountPage() {
                                         name="timezone"
                                         value={formData.timezone}
                                         onChange={handleChange}
-                                        className="w-full bg-white border px-4 py-2 rounded"
+                                        className="w-full bg-white border px-4 py-2 rounded text-black"
                                     >
                                         <option>UTC +5 (PKT)</option>
                                         <option>UTC +0 (GMT)</option>
@@ -316,7 +327,7 @@ export default function MyAccountPage() {
                                     <input
                                         type="password"
                                         name="currentPassword"
-                                        className="w-full bg-white  border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
+                                        className="w-full bg-white text-black border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
                                         required
                                     />
                                 </div>
@@ -327,7 +338,7 @@ export default function MyAccountPage() {
                                     <input
                                         type="password"
                                         name="newPassword"
-                                        className="w-full bg-white border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
+                                        className="w-full bg-white text-black border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
                                         required
                                     />
                                 </div>
@@ -336,7 +347,7 @@ export default function MyAccountPage() {
                                     <input
                                         type="password"
                                         name="confirmPassword"
-                                        className="w-full bg-white  border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
+                                        className="w-full bg-white text-black border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-purple-400"
                                         required
                                     />
                                 </div>

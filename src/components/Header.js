@@ -53,7 +53,7 @@ export default function Header() {
             alt="Logo"
             width={128} // apni desired width
             height={20} // apni desired height (h-8 = 32px)
-            className="h-8 w-auto" 
+            className="h-8 w-auto"
           />
         </div>
 
@@ -129,7 +129,20 @@ export default function Header() {
             ))}
             {authChecked && (
               isLoggedIn ? (
-                <li className="text-white font-semibold"><a href="#">👋 {user?.name}</a></li>
+                <>
+                  <li className="text-white font-semibold"><a href="#">👋 {user?.name}</a></li>
+                  <li className="text-white font-semibold">
+                    <button
+                      onClick={async () => {
+                        await fetch('/api/logout', { method: 'POST' });
+                        window.location.href = '/';
+                      }}
+                      className="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded-full transition cursor-pointer"
+                    >
+                      Logout
+                    </button>
+                  </li>
+                </>
               ) : (
                 <>
                   <li>
