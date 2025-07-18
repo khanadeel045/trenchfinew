@@ -12,14 +12,13 @@ export async function GET(request, context) {
     const contentType = mime.getType(filePath) || 'application/octet-stream';
 
     return new Response(data, {
-      status: 200,
+      status: 206, // Partial Content
       headers: {
         'Content-Type': contentType,
-        'Accept-Ranges': 'bytes',
-        'Content-Range': `bytes ${start}-${end}/${fileSize}`,
-        'Content-Length': chunkSize.toString(),
-        'Cache-Control': 'public, max-age=3600',
-        'Cross-Origin-Resource-Policy': 'cross-origin'
+        'Accept-Ranges': 'bytes',                      // ✅ for seek
+        'Cache-Control': 'public, max-age=3600',       // ✅ optional
+        'Content-Length': data.length.toString(),      // ✅ important
+        'Cross-Origin-Resource-Policy': 'cross-origin' // ✅ iOS Safari fix
       },
     });
   } catch (err) {
