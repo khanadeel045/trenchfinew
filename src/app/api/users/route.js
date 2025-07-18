@@ -101,8 +101,8 @@ export async function DELETE(req) {
     }
 
     // Optional: remove uploaded profile image from public folder
-    if (user.profileImage && user.profileImage.startsWith('/uploads/')) {
-      const filePath = path.join(process.cwd(), 'public', user.profileImage);
+    if (user.profileImage && user.profileImage.startsWith('/upload_dir/')) {
+      const filePath = path.join(process.cwd(), 'upload_dir', user.profileImage);
       if (fs.existsSync(filePath)) {
         fs.unlinkSync(filePath); // delete file
       }

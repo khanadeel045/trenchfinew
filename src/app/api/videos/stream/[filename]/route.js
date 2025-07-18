@@ -3,7 +3,7 @@ import path from 'path';
 
 export async function GET(req, { params }) {
   const { filename } = params;
-  const filePath = path.join(process.cwd(), 'public/uploads', filename);
+  const filePath = path.join(process.cwd(), 'upload_dir', filename);
 
   const stat = fs.statSync(filePath);
   const fileSize = stat.size;

@@ -80,11 +80,11 @@ export async function POST(request) {
     let featureUrl = '';
     if (fileObj && fileObj instanceof File) {
       const buf = Buffer.from(await fileObj.arrayBuffer());
-      const dir = path.join(process.cwd(), 'public/uploads', user.id, 'blogs');
+      const dir = path.join(process.cwd(), 'upload_dir', user.id, 'blogs');
       if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
       const fn = `${Date.now()}-${fileObj.name}`;
       await fs.promises.writeFile(path.join(dir, fn), buf);
-      featureUrl = `/uploads/${user.id}/blogs/${fn}`;
+      featureUrl = `/upload_dir/${user.id}/blogs/${fn}`;
     }
 
     console.log('Creating blog with slug:', slug);
@@ -149,11 +149,11 @@ export async function PUT(request, { params }) {
       }
       // save new
       const buffer = Buffer.from(await featureFile.arrayBuffer());
-      const uploadsDir = path.join(process.cwd(), 'public', 'uploads', decoded.id, 'blogs');
+      const uploadsDir = path.join(process.cwd(), 'upload_dir', decoded.id, 'blogs');
       if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
       const filename = `${Date.now()}-${featureFile.name}`;
       await fs.promises.writeFile(path.join(uploadsDir, filename), buffer);
-      updateData.featureImage = `/uploads/${decoded.id}/blogs/${filename}`;
+      updateData.featureImage = `/upload_dir/${decoded.id}/blogs/${filename}`;
     }
 
     const updated = await Blog.findByIdAndUpdate(id, updateData, { new: true });
