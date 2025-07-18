@@ -78,7 +78,7 @@ export async function POST(request) {
 
     // Image
     let featureUrl = '';
-    if (fileObj && fileObj instanceof File) {
+    if (fileObj && typeof fileObj.arrayBuffer === 'function') {
       const buf = Buffer.from(await fileObj.arrayBuffer());
       const dir = path.join(process.cwd(), 'upload_dir', user.id, 'blogs');
       if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
