@@ -65,7 +65,7 @@ export default function CreateBlogProfessional({
   const handleSubmit = async e => {
     e.preventDefault();
     if (!title.trim() || !slug.trim() || !content.trim() || !categoryId) {
-      alert('Title, Slug, Content aur Category required hain.');
+      alert('Title, Slug, Content aur Category required.');
       return;
     }
     setSubmitting(true);

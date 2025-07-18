@@ -31,3 +31,36 @@ export async function DELETE(request, { params }) {
   }
   return NextResponse.json({ success: true });
 }
+
+
+export async function PUT(request, { params }) {
+  await connectToDatabase();
+
+  const { id } = params;
+
+  const cookieStore = await cookies();
+  const token = cookieStore.get('token')?.value || '';
+  const user = verifyToken(token);
+
+  if (!user?.id) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  const formData = await request.formData();
+  const title = formData.get('title')?.toString().trim();
+  const slug = formData.get('slug')?.toString().trim();
+  const content = formData.get('content')?.toString().trim();
+  const category = formData.get('category')?.toString().trim();
+
+  if (!title || !content || !category) {
+    return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
+  }
+
+  const updated = await Blog.findByIdAndUpdate(
+    id,
+    { title, slug, content, category },
+    { new: true }
+  );
+
+  return NextResponse.json(updated);
+}
