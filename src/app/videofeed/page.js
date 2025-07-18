@@ -9,13 +9,13 @@ export default async function VideoFeedPage() {
 
     const user = await requireMembershipAccess('/videofeed');
   
-    if (!user) {
-      return (
-        <div className="min-h-screen flex items-center justify-center text-red-500 text-xl">
-          ❌ Access denied. Upgrade your membership to view this page.
-        </div>
-      );
-    }
+    // if (!user) {
+    //   return (
+    //     <div className="min-h-screen flex items-center justify-center text-red-500 text-xl">
+    //       ❌ Access denied. Upgrade your membership to view this page.
+    //     </div>
+    //   );
+    // }
   return (
     <>
     <div  className="min-h-screen">      
