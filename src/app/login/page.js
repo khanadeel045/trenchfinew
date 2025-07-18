@@ -28,7 +28,7 @@ export default function LoginPage() {
         setErrorMsg(data.message || 'Something Went Wrong');
         setIsLoading(false); // stop loader on error
       } else {
-        router.push('/account');
+        router.push('/videofeed');
       }
     } catch (err) {
       setErrorMsg('Network error');
