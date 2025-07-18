@@ -5,7 +5,6 @@ import mime from 'mime';
 
 export async function GET(request, context) {
   const { path: segments } = await context.params;
-
   const filePath = path.join(process.cwd(), 'upload_dir', ...segments);
 
   try {
@@ -16,13 +15,14 @@ export async function GET(request, context) {
       status: 200,
       headers: {
         'Content-Type': contentType,
-        'Accept-Ranges': 'bytes',              // ✅ iOS requires this for seek
-        'Cache-Control': 'public, max-age=3600', // ✅ optional, improve delivery
-        'Content-Length': data.length.toString(), // ✅ ensures proper video streaming
+        'Accept-Ranges': 'bytes',                      // ✅ for seek
+        'Cache-Control': 'public, max-age=3600',       // ✅ optional
+        'Content-Length': data.length.toString(),      // ✅ important
+        'Cross-Origin-Resource-Policy': 'cross-origin' // ✅ iOS Safari fix
       },
     });
   } catch (err) {
-    console.error('❌ File Read Error:', err);
+    console.error('❌ Route error:', err);
     return new Response('Not found', { status: 404 });
   }
 }
