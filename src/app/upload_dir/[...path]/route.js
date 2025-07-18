@@ -19,8 +19,6 @@ export async function GET(request, context) {
         'Accept-Ranges': 'bytes',              // ✅ iOS requires this for seek
         'Cache-Control': 'public, max-age=3600', // ✅ optional, improve delivery
         'Content-Length': data.length.toString(), // ✅ ensures proper video streaming
-        'Cross-Origin-Resource-Policy': 'cross-origin' // ✅ iOS Safari fix
-
       },
     });
   } catch (err) {
