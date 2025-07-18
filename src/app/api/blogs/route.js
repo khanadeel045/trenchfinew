@@ -141,7 +141,8 @@ export async function PUT(request, { params }) {
     const updateData = { title, slug, content, category };
 
     // New feature image?
-    if (featureFile && featureFile instanceof File) {
+    if (featureFile && typeof featureFile.arrayBuffer === 'function') {
+
       // delete old image
       if (existing.featureImage) {
         const oldPath = path.join(process.cwd(), 'public', existing.featureImage);
